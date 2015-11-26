@@ -5,5 +5,30 @@ html, body {
 }
 
 .map-home {
-	height: 100%;
+	height: 90%;
+}
+
+.footer {
+	background-color: #212121;
+	width: 100%;
+	height: 10%;
+	float: left;
+	padding-top: 20px;
+	color: white;
+}
+
+.footer ul li a {
+	color: white;
+}
+
+.btn-pink {
+	color: #FFF;
+	background-color: #f50057;
+	border-color: #ad1457;
+}
+
+.btn-pink:hover {
+	color: #FFF;
+	background-color: #ad1457;
+	border-color: #ad1457;
 }

@@ -3,7 +3,33 @@
 @section('title', 'Home')
 
 @section('content')
+	<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 10%">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+			  	<div class="modal-body">
+			    	<h4 class="text-center modal-title"><strong>Welcome to ATMoo<strong></h4>
+			    	<h5 class="text-center">ATM when you can find anywhere anytime</h5>
+			    	<div class="row" style="margin-top: 30px">
+			    		<div class="col-md-2"></div>
+				    	<div class="col-md-8">
+				    		<button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search your ATM</button>
+					    	<button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add hidden ATM</button>	
+				    	</div>
+				    	<div class="col-md-2"></div>
+			    	</div>
+			  	</div>
+			</div>
+		</div>
+	</div>
 	<div class="map-home" id="map"></div>
+	<script type="text/javascript">
+		$(window).load(function(){
+			$('#myModal').modal({
+				show: true,
+				backdrop: 'static'
+			});
+		});
+	</script>
 	<script>
 		function initMap() {
 			var map = new google.maps.Map(document.getElementById('map'), {
