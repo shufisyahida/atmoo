@@ -58,8 +58,11 @@
   			var infoWindow = new google.maps.InfoWindow({map : map});
 
   			@foreach ($atms as $atm)
-  				addMarker($atm->lat, $atm->lng, $atm->bank.nama);
-  			addMarker(-6.363603, 106.831157);
+  				var lat = parseFloat({{$atm->lat}});
+  				var lng = parseFloat({{$atm->lng}});
+  				var msg = "{{$atm->nama}} -"+" {{$atm->nama_atm}}";
+  				addMarker(lat, lng, msg);
+  			@endforeach
 
 		}
 
@@ -68,7 +71,7 @@
 			var marker = new google.maps.Marker({
     			position: myLatLng,
    				map: map,
-    			title: msg
+   				title: msg
  	 		});
 		}
 

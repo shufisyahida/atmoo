@@ -17,8 +17,7 @@ class AtmController extends Controller
      */
     public function index()
     {
-        $atm = DB::table('atm')->leftJoin('bank', 'atm.id_bank', '=', 'bank.id')->get();
-        //var_dump($atm);
+        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
         return view('search', ['atms' => $atm]);
     }
 
