@@ -21,3 +21,7 @@ Route::get('/formadd', function () {
     return view('formadd');
 });
 
+Route::get('/searchs', function(){
+	return view('searchfront');
+});
+
