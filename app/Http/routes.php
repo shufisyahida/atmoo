@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/search', function () {
-    return view('search');
-});
+Route::get('/search', 'AtmController@index');
 
 Route::get('/formadd', function () {
     return view('formadd');

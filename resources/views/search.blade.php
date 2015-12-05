@@ -13,30 +13,29 @@
 		});
 	</script>
 	<script>
+		var map;
+
 		function initMap() {
-			var map = new google.maps.Map(document.getElementById('map'), {
+			map = new google.maps.Map(document.getElementById('map'), {
     			center: {lat: -6.367713, lng: 106.821228},
     			zoom: 12
   			});
 
   			var infoWindow = new google.maps.InfoWindow({map : map});
 
-  			// if(navigator.geolocation) {
-  			// 	navigator.geolocation.getCurrentPosition(function(position){
-  			// 		var pos = {
-  			// 			lat: position.coords.latitude,
-  			// 			lng: position.corrds.longitude
-  			// 		};
+  			@foreach ($atms as $atm)
+  				addMarker($atm->lat, $atm->lng, $atm->bank.nama);
+  			addMarker(-6.363603, 106.831157);
 
-  			// 		infoWindow.setPosition(pos);
-  			// 		infoWindow.setContent('Disini');
-  			// 		map.setCenter(pos);
-  			// 	}, function() {
-  			// 		handleLocationError(true, infoWindow, map.getCenter());
-  			// 	});
-  			// } else {
-  			// 	handleLocationError(false, infoWndow, map.getCenter());
-  			// }
+		}
+
+		function addMarker(lt, lg, msg){
+			var myLatLng = {lat: lt, lng: lg};
+			var marker = new google.maps.Marker({
+    			position: myLatLng,
+   				map: map,
+    			title: msg
+ 	 		});
 		}
 
 		function handleLocationError(browserHasGeolocation, infowWindow, pos) {
