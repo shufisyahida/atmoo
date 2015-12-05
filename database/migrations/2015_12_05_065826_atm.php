@@ -15,7 +15,7 @@ class Atm extends Migration
         Schema::create('atm', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('id_bank')->unsigned();
-            $table->string('nama');
+            $table->string('nama_atm');
             $table->string('alamat');
             $table->string('lng');
             $table->string('lat');
