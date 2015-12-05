@@ -30,13 +30,10 @@
 @endsection
 
 @section('content')
-<<<<<<< HEAD
+
      <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
-    <p id="demo"></p>
-=======
-     <button type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
-  
->>>>>>> 553ec13427cfe6b1b53e769826f85c1def4e0590
+    
+
 	<div class="map" id="map"></div>
 	<script type="text/javascript">
 		$(window).load(function(){
@@ -71,6 +68,7 @@ function getLocation() {
         }
 
 </script>
+  <!-- mumus -->
 	<script>
 		var map;
 
@@ -113,7 +111,7 @@ function getLocation() {
 	                    'Error: Your browser doesn\'t support geolocation.');
 		}
 
-		
+		<!-- shufi -->
 		$.ajax({
 			type: 'GET',
 			url: '{{ url("/search/autocomplete") }}',
