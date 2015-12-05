@@ -3,43 +3,21 @@
 @section('title', 'Home')
 
 @section('header')
-    <div class="navbar navbar-default navbar-top admin-navbar" role="navigation">
+    <div class="header">
         <div class="container" id="headerContainer">
             <div class="row">
                 <button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
-                    <ul class="nav navbar-nav navbar-right">
-                        <div class="col-xs-4">    
-                            <select class="form-control input-sm">
-                                <option>ATM BNI</option>
-                                <option>ATM Mandiri</option>
-                                <option>ATM BRI</option>
-                                <option>ATM CIMB Niaga</option>
-                                <option>ATM CIMB Niaga Clicks</option>
-                            </select>
-                        </div>
-
-                        <div class="col-xs-4">
-                            <input class="form-control input-sm" type="text" placeholder="Write location">
-                            </div>
-                            
-                            <button type="button" class="btn btn-link btn-lg">
-                                <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                            </button>
-
-                            <button type="button" class="btn btn-danger btn-sm">Search</button>
-
-                        </ul>
-                </div>
-
-             </div>
+            </div>
         </div>
+    </div>
 
 @endsection
 
 @section('content')
-    <div class="navbar navbar-default navbar-top admin-navbar" role="navigation">
-            <div class="container" id="headerContainer"></div>
-            <a href="#" class="visible-xs"><h4 id="adminBreadCrumb">Please Fill The Form</h4></a>  
+    <div class="form">
+        <div class="container" id="headerContainer"></div>
+            <h4 class="text-center">Please Fill The Form</h4>
+        </div>      
     </div>
 
     <form class="form-horizontal">

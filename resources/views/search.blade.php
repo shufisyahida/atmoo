@@ -2,8 +2,42 @@
 
 @section('title', 'Home')
 
+@section('header')
+  <div class="header">
+    <div class="container" id="headerContainer">
+            <div class="row">
+                <button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
+                    <ul class="nav navbar-nav navbar-right">
+                        <div class="col-xs-4">    
+                            <select class="form-control input-sm">
+                                <option>ATM BNI</option>
+                                <option>ATM Mandiri</option>
+                                <option>ATM BRI</option>
+                                <option>ATM CIMB Niaga</option>
+                                <option>ATM CIMB Niaga Clicks</option>
+                            </select>
+                        </div>
+
+                        <div class="col-xs-4">
+                            <input class="form-control input-sm" type="text" placeholder="Write location">
+                        </div>
+                            
+                        <button type="button" class="btn btn-link btn-lg">
+                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+                        </button>
+
+                        <button type="button" class="btn btn-danger btn-sm">Search</button>
+
+                    </ul>
+            </div>
+
+        </div>
+  </div>
+@endsection
+
 @section('content')
-	<div class="map-home" id="map"></div>
+
+	<div class="map" id="map"></div>
 	<script type="text/javascript">
 		$(window).load(function(){
 			$('#myModal').modal({
@@ -24,8 +58,11 @@
   			var infoWindow = new google.maps.InfoWindow({map : map});
 
   			@foreach ($atms as $atm)
-  				addMarker($atm->lat, $atm->lng, $atm->bank.nama);
-  			addMarker(-6.363603, 106.831157);
+  				var lat = parseFloat({{$atm->lat}});
+  				var lng = parseFloat({{$atm->lng}});
+  				var msg = "{{$atm->nama}} -"+" {{$atm->nama_atm}}";
+  				addMarker(lat, lng, msg);
+  			@endforeach
 
 		}
 
@@ -34,7 +71,7 @@
 			var marker = new google.maps.Marker({
     			position: myLatLng,
    				map: map,
-    			title: msg
+   				title: msg
  	 		});
 		}
 
