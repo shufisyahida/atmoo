@@ -6,9 +6,9 @@
   <div class="header">
     <div class="container" id="headerContainer">
             <div class="row">
-                <button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
+                <a href="{{ url ('/') }}"><button type="button" class="btn btn-link"><h4>ATMoo</h4></button></a>
                     <ul class="nav navbar-nav navbar-right">
-                        <div class="col-xs-6 col-sm-3" style= "padding-top:15px" >    
+                        <div class="col-md-4 col-sm-3" style= "padding-top:15px" >    
                             <select class="form-control input-sm">
                                 <option>ATM BNI</option>
                                 <option>ATM Mandiri</option>
@@ -22,12 +22,7 @@
                             <input class="form-control input-sm" type="text" placeholder="Write location">
                         </div>
                             
-                        <div class="col-xs-6 col-sm-2">
-                          <button type="button" class="btn btn-link btn-lg" style= "padding-top:15px">
-                              <span class="glyphicon glyphicon-map-marker" aria-hidden="true" ></span>
-                          </button>
-                        </div>
-
+                        
                         <div class="col-xs-6 col-sm-3" style= "padding-top:15px">
                           <button type="button" class="btn btn-danger btn-sm">Search</button>
                         </div>
@@ -36,10 +31,13 @@
 
         </div>
   </div>
+
+
 @endsection
 
 @section('content')
-
+     <button type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
+  
 	<div class="map" id="map"></div>
 	<script type="text/javascript">
 		$(window).load(function(){
