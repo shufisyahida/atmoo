@@ -43,6 +43,27 @@
                     </div>
                 </div>
 
+                <div class="form-group">
+                    <div class="row">
+                        <label for="inputLocation" class="col-sm-2 control-label">Latitude</label>
+                        <div class="col-sm-3">
+                            <input type="lat" class="form-control col-md-8" id="latLocation" disabled>
+                        </div>
+                        <label for="inputLocation" class="col-sm-2 control-label">Longitude</label>
+                        <div class="col-sm-3">
+                            <input type="lng" class="form-control col-md-8" id="lngLocation" disabled>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label for="inputLocation" class="col-sm-2 control-label">Map</label>
+                    <div class="col-sm-10">
+                        <div class="map-add" id="map"></div>
+                    </div>
+                </div>
+
                 <div class="form-group" style="padding-top: 10px">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-pink">Add ATM</button>
@@ -52,4 +73,36 @@
             </div>
         </div>
     </div>
+
+    <script>
+        var map;
+        var lat;
+        var lng;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -6.367713, lng: 106.821228},
+                zoom: 12
+            });
+
+            google.maps.event.addListener(map, 'click', function( event ){
+                lat = event.latLng.lat();
+                lng = event.latLng.lng();
+
+                var myLatLng = {lat: lat, lng: lng};
+                var marker = new google.maps.Marker({
+                    position: myLatLng,
+                    map: map,
+                });
+            });
+        }
+
+        function clearMarkers() {
+            setMapOnAll(null);
+        }
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs    
+&signed_in=true&callback=initMap"
+        async defe></script>
 @endsection

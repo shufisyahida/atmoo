@@ -73,6 +73,10 @@ html, body {
 	height: 80%;
 }
 
+.map-add{
+	height: 30%;
+}
+
 .btn-circle.btn-xl {
   margin-left: 10px;
   width: 70px;
