@@ -30,8 +30,13 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
+     <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
+    <p id="demo"></p>
+=======
      <button type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
   
+>>>>>>> 553ec13427cfe6b1b53e769826f85c1def4e0590
 	<div class="map" id="map"></div>
 	<script type="text/javascript">
 		$(window).load(function(){
@@ -41,6 +46,31 @@
 			});
 		});
 	</script>
+
+<script>
+    var map;
+
+function getLocation() {
+    map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -6.307713, lng: 106.831228},
+          zoom: 10        });
+
+        var infoWindow = new google.maps.InfoWindow({map : map});
+ 
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+                        var lat = position.coords.latitude;
+                        var lng= position.coords.longitude;
+                        addMarker(lat,lng,"You are here","Here");
+                        
+                }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
+            }else{
+                alert('geolocation is unsupported?');
+            }
+            alert('alert 2: ' + lat + ', ' + lng);
+        }
+
+</script>
 	<script>
 		var map;
 
@@ -100,4 +130,5 @@
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"
         async defe></script>
+
 @endsection
