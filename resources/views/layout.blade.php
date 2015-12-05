@@ -20,6 +20,37 @@
 
 		@yield('header')
 
+		<div class="navbar navbar-default navbar-top admin-navbar" role="navigation">
+  			<div class="container" id="headerContainer">
+    			<div class="row">
+      				<button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
+      		    		<ul class="nav navbar-nav navbar-right">
+      		    			<div class="col-xs-3">    
+      		       				<select class="form-control input-sm">
+  									<option>ATM BNI</option>
+  									<option>ATM Mandiri</option>
+  									<option>ATM BRI</option>
+  									<option>ATM CIMB Niaga</option>
+  									<option>ATM CIMB Niaga Clicks</option>
+								</select>
+				      		</div>
+
+				      		<div class="col-xs-3">
+				      			<input class="form-control input-sm" type="text" placeholder="Write location" readonly>
+      						</div>
+      						
+      						<button type="button" class="btn btn-link btn-lg">
+  								<span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
+							</button>
+
+  							<button type="button" class="btn btn-primary btn-sm">Search</button>
+
+  						</ul>
+      		    </div>
+
+ 			 </div>
+ 		</div>
+
 		@yield('content')
 		
 
