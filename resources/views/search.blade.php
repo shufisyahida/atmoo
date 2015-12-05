@@ -84,6 +84,18 @@
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
 		}
+    
+    $(function() {
+ 
+      $("#bank").autocomplete({
+        source: "/search/autocomplete",
+        minLength: 1,
+        select: function(event, ui) {
+          $('#bank').val(ui.item.value);
+        }
+      });
+    });
+
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"

@@ -25,3 +25,6 @@ Route::get('/searchs', function(){
 	return view('searchfront');
 });
 
+Route::get('/search/autocomplete', 'AtmController@autocomplete');
+
+
