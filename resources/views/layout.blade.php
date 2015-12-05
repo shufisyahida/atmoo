@@ -4,7 +4,7 @@
 		<title>ATMoo - @yield('title')</title>
 
 		<!-- Cuztomized CSS -->
-		<link rel="stylesheet" href="http://localhost/atmoo/resources/assets/main.css">
+		<link rel="stylesheet" href="http://localhost:8080/atmoo/resources/assets/main.css">
 
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">

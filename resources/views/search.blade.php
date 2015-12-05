@@ -21,6 +21,27 @@
                           </button>
                         </div>
                         <div class="col-xs-2">
+                        <div class="col-xs-6 col-sm-3" style= "padding-top:15px" >    
+                            <select class="form-control input-sm">
+                                <option>ATM BNI</option>
+                                <option>ATM Mandiri</option>
+                                <option>ATM BRI</option>
+                                <option>ATM CIMB Niaga</option>
+                                <option>ATM CIMB Niaga Clicks</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-4 col-sm-3" style= "padding-top:15px">
+                            <input class="form-control input-sm" type="text" placeholder="Write location">
+                        </div>
+                            
+                        <div class="col-xs-6 col-sm-2">
+                          <button type="button" class="btn btn-link btn-lg" style= "padding-top:15px">
+                              <span class="glyphicon glyphicon-map-marker" aria-hidden="true" ></span>
+                          </button>
+                        </div>
+
+                        <div class="col-xs-6 col-sm-3" style= "padding-top:15px">
                           <button type="button" class="btn btn-danger btn-sm">Search</button>
                         </div>
                     </ul>
