@@ -22,15 +22,19 @@ class AtmController extends Controller
         foreach ($bank as $bank){
             $banker[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
         }
-        return view('search', ['atms' => $atm, 'banks' => $banker]);
+        //return view('search', ['atms' => $atm, 'banks' => $banker]);
+        return view('search', ['atms' => $atm]);
     }
 
     public function autocomplete(){
-        $bank = DB::table('bank')->get();
+        $q = Request::input('q');
+        $query = '%'.$q.'%';
+
+        $bank = App\Bank::where('nama','like',$query)->get();
         foreach ($bank as $bank){
             $results[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
         }
-        return Response::json($results);
+//        return Response::json($results);
     }
 
     /**
