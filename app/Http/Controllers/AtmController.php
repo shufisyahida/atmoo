@@ -18,7 +18,19 @@ class AtmController extends Controller
     public function index()
     {
         $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
-        return view('search', ['atms' => $atm]);
+        $bank = DB::table('bank')->get();
+        foreach ($bank as $bank){
+            $banker[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
+        }
+        return view('search', ['atms' => $atm, 'banks' => $banker]);
+    }
+
+    public function autocomplete(){
+        $bank = DB::table('bank')->get();
+        foreach ($bank as $bank){
+            $results[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
+        }
+        return Response::json($results);
     }
 
     /**

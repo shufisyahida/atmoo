@@ -1,3 +1,8 @@
+@font-face {
+	font-family: maxwellbold;
+	src: url(http://localhost/atmoo/resources/fonts/bold.ttf);
+}
+
 html, body {
 	height: 100%;
 	margin: 0;
@@ -21,6 +26,25 @@ html, body {
 	color: white;
 }
 
+.logo a{
+	color: #f50057;
+	font-size: 3em;
+}
+
+.logo a:hover{
+	color: #fff;
+	text-decoration: none;
+}
+
+.card {
+	border-radius: 2px;
+	background-color: #fafafa;
+	box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.16), 0px 2px 10px 0px rgba(0, 0, 0, 0.12) !important;
+	padding: 20px;
+	margin: 20px;
+	height: 100%;
+}
+
 .btn-pink {
 	color: #FFF;
 	background-color: #f50057;
@@ -28,7 +52,7 @@ html, body {
 }
 
 .btn-pink:hover {
-	color: #FFF;
+	color: #FFF !important;
 	background-color: #ad1457;
 	border-color: #ad1457;
 }
@@ -36,6 +60,13 @@ html, body {
 .header{
 	height: 10%;
 	background-color: #212121;
+}
+
+.container-form {
+	margin-right: auto;
+	margin-left: auto;
+	padding-right: 10%;
+	padding-left: 10%;
 }
 
 .map{
