@@ -19,3 +19,7 @@ Route::get('/search', function () {
     return view('search');
 });
 
+Route::get('/formadd', function () {
+    return view('formadd');
+});
+

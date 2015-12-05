@@ -39,8 +39,8 @@ html, body {
 }
 
 .navbar-default{
-	background-color: white;
-	border-color: white;
+	background-color: #000;
+	border-color: #000;
 	margin-top: 1%;
 }
 
@@ -48,3 +48,4 @@ html, body {
 	background-color: #000;
 	border-color: #000;
 }
+
