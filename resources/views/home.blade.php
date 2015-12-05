@@ -12,7 +12,7 @@
 			    	<div class="row" style="margin-top: 30px">
 			    		<div class="col-md-2"></div>
 				    	<div class="col-md-8">
-				    		<button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search your ATM</button>
+				    		<a href="{{ url('/search') }}"><button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search your ATM</button></a><br>
 					    	<button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add hidden ATM</button>	
 				    	</div>
 				    	<div class="col-md-2"></div>
