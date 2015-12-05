@@ -27,14 +27,16 @@ class AtmController extends Controller
     }
 
     public function autocomplete(){
-        $q = Request::input('q');
-        $query = '%'.$q.'%';
+        // $q = Request::input('q');
+        // $query = '%'.$q.'%';
 
-        $bank = App\Bank::where('nama','like',$query)->get();
-        foreach ($bank as $bank){
-            $results[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
-        }
+        // $bank = App\Bank::where('nama','like',$query)->get();
+        // $results = array();
+        // foreach ($bank as $bank){
+        //     array_push($results, [ 'id' => $bank->id, 'value' => $bank->nama ]);
+        // }
 //        return Response::json($results);
+        return "Halo, shuf";
     }
 
     /**
