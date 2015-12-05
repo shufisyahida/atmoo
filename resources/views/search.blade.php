@@ -8,7 +8,6 @@
             <div class="row">
                 <button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
                     <ul class="nav navbar-nav navbar-right">
-                        <div class="col-xs-2">
                         <div class="col-xs-6 col-sm-3" style= "padding-top:15px" >    
                             <select class="form-control input-sm">
                                 <option>ATM BNI</option>
