@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class AtmController extends Controller
+class Search extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,13 @@ class AtmController extends Controller
      */
     public function index()
     {
-        //
+        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        $bank = DB::table('bank')->get();
+        foreach ($bank as $bank){
+            $banker[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
+        }
+        //return view('search', ['atms' => $atm, 'banks' => $banker]);
+        return view('search', ['atms' => $atm]);
     }
 
     /**
