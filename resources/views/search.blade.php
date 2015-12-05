@@ -6,7 +6,7 @@
   <div class="header">
     <div class="container" id="headerContainer">
             <div class="row">
-                <a href="{{ url ('/') }}"><button type="button" class="btn btn-link"><h4>ATMoo</h4></button></a>
+                <span class="logo"><a href="{{url('/')}}">ATMoo</a></span>
                     <ul class="nav navbar-nav navbar-right">
                         <div class="col-md-4 col-sm-3" style= "padding-top:15px" >    
                             <select class="form-control input-sm">
@@ -24,7 +24,7 @@
                             
                         
                         <div class="col-xs-6 col-sm-3" style= "padding-top:15px">
-                          <button type="button" class="btn btn-danger btn-sm">Search</button>
+                          <button type="button" class="btn btn-pink btn-sm">Search</button>
                         </div>
                     </ul>
             </div>
@@ -36,7 +36,7 @@
 @endsection
 
 @section('content')
-     <button type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
+     <button type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
   
 	<div class="map" id="map"></div>
 	<script type="text/javascript">
