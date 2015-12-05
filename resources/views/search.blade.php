@@ -8,7 +8,7 @@
             <div class="row">
                 <button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
                     <ul class="nav navbar-nav navbar-right">
-                        <div class="col-xs-4">    
+                        <div class="col-xs-6 col-sm-3" style= "padding-top:15px" >    
                             <select class="form-control input-sm">
                                 <option>ATM BNI</option>
                                 <option>ATM Mandiri</option>
@@ -18,16 +18,19 @@
                             </select>
                         </div>
 
-                        <div class="col-xs-4">
+                        <div class="col-md-4 col-sm-3" style= "padding-top:15px">
                             <input class="form-control input-sm" type="text" placeholder="Write location">
                         </div>
                             
-                        <button type="button" class="btn btn-link btn-lg">
-                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                        </button>
+                        <div class="col-xs-6 col-sm-2">
+                          <button type="button" class="btn btn-link btn-lg" style= "padding-top:15px">
+                              <span class="glyphicon glyphicon-map-marker" aria-hidden="true" ></span>
+                          </button>
+                        </div>
 
-                        <button type="button" class="btn btn-danger btn-sm">Search</button>
-
+                        <div class="col-xs-6 col-sm-3" style= "padding-top:15px">
+                          <button type="button" class="btn btn-danger btn-sm">Search</button>
+                        </div>
                     </ul>
             </div>
 
