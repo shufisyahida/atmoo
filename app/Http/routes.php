@@ -15,16 +15,19 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/search', 'AtmController@index');
+//SearchController
+Route::get('/search', 'SearchController@index');
+Route::get('/searchResult', 'SearchController@searchResult');
+
+//BankController
+Route::get('/getBankList', 'BankController@index');
+
+//AtmController
+Route::get('/getAtmList', 'AtmController@index');
 
 Route::get('/formadd', function () {
     return view('formadd');
 });
 
-Route::get('/searchs', function(){
-	return view('searchfront');
-});
-
-Route::get('/search/autocomplete', 'AtmController@autocomplete');
 
 

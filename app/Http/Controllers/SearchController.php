@@ -1,0 +1,133 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use DB;
+
+class SearchController extends Controller
+{
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        $bank = DB::table('bank')->get();
+        foreach ($bank as $bank){
+            $banker[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
+        }
+        //return view('search', ['atms' => $atm, 'banks' => $banker]);
+        return view('search', ['atms' => $atm]);
+    }
+
+    public function getAtmNameAndLocation($str) {
+            $strlen = strlen($str);
+            $index = 0;
+            for($i = 0; $i < $strlen; $i++) {
+                $char = substr($str, $i, 1);
+                if(strcmp($char,",") == 0) {
+                    $index += $i;
+                    break;
+                }
+            }
+            $result = Array('name'=>substr($str, 0, $index), 'location'=>substr($str, $index+1));
+            return $result;
+    }
+
+    public function searchResult(Request $request) {
+        $location = $request->input('location');
+        $bank = $request->input('bank');
+        
+        $data = SearchController::getAtmNameAndLocation($location);
+
+        $atmName = $data['name'];
+        $loc = $data['location'];
+
+        $result = Array();
+        
+        $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        foreach ($activeAtms as $activeAtm) {
+            if(strcmp($activeAtm['name'], $atmName) == 0 && strcmp($activeAtm['location'], $loc) == 0) {
+                array_push($result, $activeAtm);
+                return $result;
+            }
+        }
+
+        array_push($result, ['false']);
+        return $result;
+    }
+
+    
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
+    }
+}

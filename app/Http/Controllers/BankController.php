@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Atm;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Bank;
 
-class AtmController extends Controller
+class BankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,10 +17,11 @@ class AtmController extends Controller
      */
     public function index()
     {
-        $atms = Atm::all();
+
+        $banks = Bank::all();
         $results = array();
-        foreach ($atms as $atm){
-            array_push($results, $atm->nama_atm . ", " . $atm->alamat);
+        foreach ($banks as $bank){
+            array_push($results, $bank->nama);
         }
         return $results;
     }
