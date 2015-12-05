@@ -83,25 +83,19 @@
 	                    'Error: Your browser doesn\'t support geolocation.');
 		}
 
-		function filter() {
-			$.ajax({
-				type: 'GET',
-				url: '{{ url("/search/autocomplete") }}',
-				data: {
-					q: $('#bank').val()
-				}
-			}).done(function(response) {
-				var availableTags = response;
-				$( "#bank" ).autocomplete({
-				      source: availableTags
-				});
+		
+		$.ajax({
+			type: 'GET',
+			url: '{{ url("/search/autocomplete") }}',
+			data: {
+				q: $('#bank').val()
+			}
+		}).done(function(response) {
+			var availableTags = response;
+			$( "#bank" ).autocomplete({
+			      source: availableTags
 			});
-		}
-
-		
-		
-
-		filter();
+		});
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"
