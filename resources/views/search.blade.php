@@ -75,7 +75,7 @@ function getLocation() {
 		function initMap() {
 			map = new google.maps.Map(document.getElementById('map'), {
     			center: {lat: -6.367713, lng: 106.821228},
-    			zoom: 12
+    			zoom: 17
   			});
 
   			var infoWindow = new google.maps.InfoWindow({map : map});
@@ -84,7 +84,7 @@ function getLocation() {
   				var lat = parseFloat({{$atm->lat}});
   				var lng = parseFloat({{$atm->lng}});
   				var msg = "{{$atm->nama}} -"+" {{$atm->nama_atm}}";
-          var add = "{{$atm->alamat}}";
+          		var add = "{{$atm->alamat}}";
   				addMarker(lat, lng, msg, add);
   			@endforeach
 
@@ -114,14 +114,12 @@ function getLocation() {
 		<!-- shufi -->
 		$.ajax({
 			type: 'GET',
-			url: '{{ url("/search/autocomplete") }}',
-			data: {
-				q: $('#bank').val()
-			}
+			url: '{{ url("/getBankList") }}'
 		}).done(function(response) {
-			var availableTags = response;
-			$( "#bank" ).autocomplete({
-			      source: availableTags
+				console.log(response);
+				var availableTags = response;
+				$( "#bank" ).autocomplete({
+				      source: availableTags
 			});
 		});
 	</script>

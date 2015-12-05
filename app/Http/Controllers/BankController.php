@@ -3,12 +3,12 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Bank;
 
-class AtmController extends Controller
+class BankController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +17,13 @@ class AtmController extends Controller
      */
     public function index()
     {
-        //
+
+        $banks = Bank::all();
+        $results = array();
+        foreach ($banks as $bank){
+            array_push($results, $bank->nama);
+        }
+        return $results;
     }
 
     /**
