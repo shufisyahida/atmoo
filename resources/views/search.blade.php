@@ -8,18 +8,18 @@
             <div class="row">
                 <span class="logo"><a href="{{url('/')}}">ATMoo</a></span>
                     <ul class="nav navbar-nav navbar-right">
-                        <div class="col-md-4 col-sm-3" style= "padding-top:15px" >    
-                            <input class="form-control input-sm" type="text" name="bank" id="bank" placeholder="Write bank name">
-                        </div>
-
-                        <div class="col-md-4 col-sm-3" style= "padding-top:15px">
-                            <input class="form-control input-sm" type="text" name="location" id="location" placeholder="Write location">
-                        </div>
-                            
-                        
-                        <div class="col-xs-6 col-sm-3" style= "padding-top:15px">
-                          <button type="button" class="btn btn-pink btn-sm">Search</button>
-                        </div>
+                    	<form class="form-inline" style="padding-top:15px" method="GET" action="{{url('/searchResult')}}">
+                    		<input type="hidden" name="_token" value="{{ csrf_token() }}">
+                    		<div class="form-group">
+                    			<input class="form-control input-sm" type="text" name="location" size="70" id="location" placeholder="Write location">
+                    		</div>
+                    		<div class="form-group">
+                    			<input class="form-control input-sm" type="text" name="bank" id="bank" size="20" placeholder="Write bank name">
+                    		</div>
+                    		<div class="form-group">
+                    			<button type="submit" class="btn btn-pink btn-sm">Search</button>
+                    		</div>
+                    	</form>
                     </ul>
             </div>
 
@@ -75,7 +75,7 @@ function getLocation() {
 		function initMap() {
 			map = new google.maps.Map(document.getElementById('map'), {
     			center: {lat: -6.367713, lng: 106.821228},
-    			zoom: 17
+    			zoom: 15
   			});
 
   			var infoWindow = new google.maps.InfoWindow({map : map});
@@ -117,9 +117,20 @@ function getLocation() {
 			url: '{{ url("/getBankList") }}'
 		}).done(function(response) {
 				console.log(response);
-				var availableTags = response;
+				var availableBanks = response;
 				$( "#bank" ).autocomplete({
-				      source: availableTags
+				      source: availableBanks
+			});
+		});
+
+		$.ajax({
+			type: 'GET',
+			url: '{{ url("/getAtmList") }}'
+		}).done(function(response) {
+				console.log(response);
+				var availableATMs = response;
+				$( "#location" ).autocomplete({
+				      source: availableATMs
 			});
 		});
 	</script>

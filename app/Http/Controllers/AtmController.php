@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use DB;
+use App\Atm;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -17,7 +17,12 @@ class AtmController extends Controller
      */
     public function index()
     {
-        //
+        $atms = Atm::all();
+        $results = array();
+        foreach ($atms as $atm){
+            array_push($results, $atm->nama_atm . ", " . $atm->alamat);
+        }
+        return $results;
     }
 
     /**
