@@ -21,3 +21,5 @@ Route::get('/formadd', function () {
     return view('formadd');
 });
 
+Route::get('/search/autocomplete', 'AtmController@autocomplete');
+
