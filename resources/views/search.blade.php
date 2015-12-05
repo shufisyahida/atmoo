@@ -8,18 +8,6 @@
             <div class="row">
                 <button type="button" class="btn btn-link"><h4>ATMoo</h4></button>
                     <ul class="nav navbar-nav navbar-right">
-                      <br>
-                        <div class="col-xs-3">  
-                            <input class="form-control input-sm" id="bank" placeholder="Nama Bank">
-                        </div>
-                        <div class="col-xs-4">
-                            <input class="form-control input-sm" type="text" placeholder="Tulis Lokasi">
-                        </div>
-                        <div class="col-xs-2">  
-                          <button type="button" class="btn btn-link btn-lg">
-                            <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                          </button>
-                        </div>
                         <div class="col-xs-2">
                         <div class="col-xs-6 col-sm-3" style= "padding-top:15px" >    
                             <select class="form-control input-sm">
