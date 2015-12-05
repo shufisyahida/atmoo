@@ -64,18 +64,25 @@
   				var lat = parseFloat({{$atm->lat}});
   				var lng = parseFloat({{$atm->lng}});
   				var msg = "{{$atm->nama}} -"+" {{$atm->nama_atm}}";
-  				addMarker(lat, lng, msg);
+          var add = "{{$atm->alamat}}";
+  				addMarker(lat, lng, msg, add);
   			@endforeach
 
 		}
 
-		function addMarker(lt, lg, msg){
+		function addMarker(lt, lg, msg, add){
+      var infoBank = new google.maps.InfoWindow();
 			var myLatLng = {lat: lt, lng: lg};
 			var marker = new google.maps.Marker({
     			position: myLatLng,
    				map: map,
    				title: msg
  	 		});
+      google.maps.event.addListener(marker, 'click', function() {
+        infoBank.setContent('<div><strong>' + msg + '</strong><br>' +
+          'Alamat: ' + add + '<br>' +'</div>');
+        infoBank.open(map, this);
+      });
 		}
 
 		function handleLocationError(browserHasGeolocation, infowWindow, pos) {
