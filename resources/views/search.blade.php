@@ -6,25 +6,19 @@
   <div class="header">
     <div class="container" id="headerContainer">
             <div class="row">
-                <a href="{{ url ('/') }}"><button type="button" class="btn btn-link"><h4>ATMoo</h4></button></a>
+                <span class="logo"><a href="{{url('/')}}">ATMoo</a></span>
                     <ul class="nav navbar-nav navbar-right">
                         <div class="col-md-4 col-sm-3" style= "padding-top:15px" >    
-                            <select class="form-control input-sm">
-                                <option>ATM BNI</option>
-                                <option>ATM Mandiri</option>
-                                <option>ATM BRI</option>
-                                <option>ATM CIMB Niaga</option>
-                                <option>ATM CIMB Niaga Clicks</option>
-                            </select>
+                            <input class="form-control input-sm" type="text" name="bank" id="bank" placeholder="Write bank name">
                         </div>
 
                         <div class="col-md-4 col-sm-3" style= "padding-top:15px">
-                            <input class="form-control input-sm" type="text" placeholder="Write location">
+                            <input class="form-control input-sm" type="text" name="location" id="location" placeholder="Write location">
                         </div>
                             
                         
                         <div class="col-xs-6 col-sm-3" style= "padding-top:15px">
-                          <button type="button" class="btn btn-danger btn-sm">Search</button>
+                          <button type="button" class="btn btn-pink btn-sm">Search</button>
                         </div>
                     </ul>
             </div>
@@ -36,8 +30,13 @@
 @endsection
 
 @section('content')
+<<<<<<< HEAD
      <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
     <p id="demo"></p>
+=======
+     <button type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
+  
+>>>>>>> 553ec13427cfe6b1b53e769826f85c1def4e0590
 	<div class="map" id="map"></div>
 	<script type="text/javascript">
 		$(window).load(function(){
@@ -94,38 +93,45 @@ function getLocation() {
 		}
 
 		function addMarker(lt, lg, msg, add){
-      var infoBank = new google.maps.InfoWindow();
+	      	var infoBank = new google.maps.InfoWindow();
 			var myLatLng = {lat: lt, lng: lg};
 			var marker = new google.maps.Marker({
-    			position: myLatLng,
-   				map: map,
-   				title: msg
- 	 		});
-      google.maps.event.addListener(marker, 'click', function() {
-        infoBank.setContent('<div><strong>' + msg + '</strong><br>' +
-          'Alamat: ' + add + '<br>' +'</div>');
-        infoBank.open(map, this);
-      });
+				position: myLatLng,
+				map: map,
+				title: msg
+			});
+	      	google.maps.event.addListener(marker, 'click', function() {
+	        	infoBank.setContent('<div><strong>' + msg + '</strong><br>' + 'Alamat: ' + add + '<br>' +'</div>');
+	        	infoBank.open(map, this);
+	      	});
 		}
 
 		function handleLocationError(browserHasGeolocation, infowWindow, pos) {
 			infoWindow.setPosition(pos);
 			infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
+	                    'Error: The Geolocation service failed.' :
+	                    'Error: Your browser doesn\'t support geolocation.');
 		}
-    
-    $(function() {
- 
-      $("#bank").autocomplete({
-        source: "/search/autocomplete",
-        minLength: 1,
-        select: function(event, ui) {
-          $('#bank').val(ui.item.value);
-        }
-      });
-    });
 
+		function filter() {
+			$.ajax({
+				type: 'GET',
+				url: '{{ url("/search/autocomplete") }}',
+				data: {
+					q: $('#bank').val()
+				}
+			}).done(function(response) {
+				var availableTags = response;
+				$( "#bank" ).autocomplete({
+				      source: availableTags
+				});
+			});
+		}
+
+		
+		
+
+		filter();
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"

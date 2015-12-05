@@ -19,15 +19,24 @@ class AtmController extends Controller
     {
         $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
         $bank = DB::table('bank')->get();
+        foreach ($bank as $bank){
+            $banker[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
+        }
+        //return view('search', ['atms' => $atm, 'banks' => $banker]);
         return view('search', ['atms' => $atm]);
     }
 
     public function autocomplete(){
-        $bank = DB::table('bank')->get();
-        foreach ($bank as $bank){
-            $results[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
-        }
-        return Response::json($results);
+        // $q = Request::input('q');
+        // $query = '%'.$q.'%';
+
+        // $bank = App\Bank::where('nama','like',$query)->get();
+        // $results = array();
+        // foreach ($bank as $bank){
+        //     array_push($results, [ 'id' => $bank->id, 'value' => $bank->nama ]);
+        // }
+//        return Response::json($results);
+        return "Halo, shuf";
     }
 
     /**
