@@ -15,7 +15,7 @@
     <div class="container map">
         <div class="card">
             <h3 class="text-center">Please Fill The Form</h3><br>
-            <div class="container-form">
+            <div class="col-md-6">
             <form class="form-horizontal">
                 <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">ATM's Name</label>
@@ -56,51 +56,53 @@
                     </div>
                 </div>
 
-
-                <div class="form-group">
-                    <label for="inputLocation" class="col-sm-2 control-label">Map</label>
-                    <div class="col-sm-10">
-                        <div class="map-add" id="map"></div>
-                    </div>
-                </div>
-
                 <div class="form-group" style="padding-top: 10px">
                     <div class="col-sm-offset-2 col-sm-10">
                         <button type="submit" class="btn btn-pink">Add ATM</button>
                     </div>
                 </div>
             </form>
+            
+            </div>
+            <div class="col-md-6">
+                <div class="map" id="map"></div>
             </div>
         </div>
     </div>
 
     <script>
-        var map;
-        var lat;
-        var lng;
-
         function initMap() {
-            map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -6.367713, lng: 106.821228},
+            var map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -6.307713, lng: 106.831228},
                 zoom: 12
             });
 
-            google.maps.event.addListener(map, 'click', function( event ){
-                lat = event.latLng.lat();
-                lng = event.latLng.lng();
+            var infoWindow = new google.maps.InfoWindow({map : map});
 
-                var myLatLng = {lat: lat, lng: lng};
-                var marker = new google.maps.Marker({
-                    position: myLatLng,
-                    map: map,
+            if(navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position){
+                    var pos = {
+                        lat: position.coords.latitude,
+                        lng: position.corrds.longitude
+                    };
+
+                    infoWindow.setPosition(pos);
+                    infoWindow.setContent('Disini');
+                    map.setCenter(pos);
+                }, function() {
+                    handleLocationError(true, infoWindow, map.getCenter());
                 });
-            });
+            } else {
+                handleLocationError(false, infoWndow, map.getCenter());
+            }
         }
 
-        function clearMarkers() {
-            setMapOnAll(null);
+        function handleLocationError(browserHasGeolocation, infowWindow, pos) {
+            infoWindow.setPosition(pos);
+            infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
         }
-
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs    
 &signed_in=true&callback=initMap"
