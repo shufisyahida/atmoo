@@ -18,30 +18,48 @@
             <div class="col-md-6">
             <form class="form-horizontal">
                 <div class="form-group">
-                    <label for="inputName" class="col-sm-2 control-label">ATM's Name</label>
+                    <label for="inputName" class="col-sm-2 control-label">Bank</label>
+                    <div class="col-sm-10">
+                        <input type="Name" class="form-control" id="bank" placeholder="Write the Name of Bank">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputName" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
                         <input type="Name" class="form-control" id="inputName" placeholder="Write the Name of ATM">
                     </div>
                 </div>
           
                 <div class="form-group">
-                    <label for="inputLocation" class="col-sm-2 control-label">ATM's Location</label>
+                    <label for="inputLocation" class="col-sm-2 control-label">Location</label>
                     <div class="col-sm-10">
                         <input type="Location" class="form-control col-md-8" id="inputLocation" placeholder="Write the Location of ATM">
                     </div>
                 </div>
           
                 <div class="form-group">
-                    <label for="inputFiture" class="col-sm-2 control-label">ATM's Fiture</label>
-                    <div class="checkbox col-sm-10">
+                    <label for="inputFiture" class="col-sm-2 control-label">Fiture</label>
+                    <div class="col-sm-3">
                         <label>
-                            <input type="checkbox"> Setor Tunai
+                            <input type="radio" id="setor" value="1" name="jenis"> Setor Tunai
                         </label>
+                    </div>
+                    <div class="col-sm-3">
                         <label>
-                            <input type="checkbox"> Tarik Tunai
+                            <input type="radio" id="tarik" value="2" name="jenis"> Tarik Tunai
                         </label>
                     </div>
                 </div>
+
+                <noms>
+                    <div class="form-group">
+                        <label for="inputFiture" class="col-sm-2 control-label">Nominal</label>
+                        <div class="checkbox col-sm-5">
+                            <input type="Location" class="form-control col-md-8" id="nominal" placeholder="50000">
+                        </div>
+                    </div>
+                </noms>
 
                 <div class="form-group">
                     <div class="row">
@@ -71,38 +89,56 @@
     </div>
 
     <script>
+        $(document).ready(function(){
+            $("noms").hide();
+
+            $("#setor").click(function(event){
+                $("noms").hide();
+            });
+
+            $("#tarik").click(function(event){
+                $("noms").show();
+            });
+        });
+
         function initMap() {
+            var image = "{{asset('pin/location_2.png')}}";
             var map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -6.307713, lng: 106.831228},
                 zoom: 12
             });
 
-            var infoWindow = new google.maps.InfoWindow({map : map});
+            marker = new google.maps.Marker({
+                position: new google.maps.LatLng(-6.307713, 106.831228),
+                draggable:true,
+                map: map,
+                icon: image
+            });
+            marker.setMap(null);
+            google.maps.event.addListener(map, 'click', function(event) {
+                latt=parseFloat(event.latLng.lat());
+                lngg=parseFloat(event.latLng.lng());
+                document.getElementById('latLocation').value = latt;
+                document.getElementById('lngLocation').value = lngg;
 
-            if(navigator.geolocation) {
-                navigator.geolocation.getCurrentPosition(function(position){
-                    var pos = {
-                        lat: position.coords.latitude,
-                        lng: position.corrds.longitude
-                    };
+                marker.setPosition(new google.maps.LatLng(latt,lngg))
 
-                    infoWindow.setPosition(pos);
-                    infoWindow.setContent('Disini');
-                    map.setCenter(pos);
-                }, function() {
-                    handleLocationError(true, infoWindow, map.getCenter());
-                });
-            } else {
-                handleLocationError(false, infoWndow, map.getCenter());
-            }
+                marker.setMap(map);
+        
+            });
         }
 
-        function handleLocationError(browserHasGeolocation, infowWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                        'Error: The Geolocation service failed.' :
-                        'Error: Your browser doesn\'t support geolocation.');
-        }
+        $.ajax({
+            type: 'GET',
+            url: '{{ url("/getBankList") }}'
+        }).done(function(response) {
+                console.log(response);
+                var availableBanks = response;
+                $( "#bank" ).autocomplete({
+                      source: availableBanks
+            });
+        });
+
     </script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs    
 &signed_in=true&callback=initMap"
