@@ -14,6 +14,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
+        $this->call(BANKSeeder::class);
         $this->call(ATMSeeder::class);
 
         Model::reguard();
