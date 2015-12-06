@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Atm;
 use App\Info;
+use Validator;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -44,6 +45,31 @@ class AtmController extends Controller
      */
     public function store(Request $request)
     {
+        $input = $request->all();
+        
+        $rules = [
+            'nama' => 'required',
+            'bank' => 'required',
+            'loc' => 'required',
+            'lng' => 'required',
+            'lat' => 'required',
+            'nom' => 'integer',
+        ];
+
+        $messages = [
+            'required' => 'This field must be filled',
+            'integer' => 'This field should be number',
+            'lat.required' => 'Please click map to get coordinates',
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
         $bank = $request->input('bank');
         $sep = explode(" - ", $bank);
         $id = $sep[0];
@@ -63,13 +89,14 @@ class AtmController extends Controller
         $info = new Info();
         $info->id_atm = $idLastAtm;
         $jenis = $request->input('jenis');
-        if($jenis == "0"){
+        if($jenis == "1"){
             $info->jenis = "Setor Tunai";
         }else{
             $info->jenis = "Tarik Tunai";
             $info->nominal = $request->input('nom');
         }
         $info->save();
+        return redirect()->back()->with('msg', 'Berhasil!');
 
     }
 

@@ -17,46 +17,54 @@
             <h3 class="text-center">Please Fill The Form</h3><br>
             <div class="col-md-6">
             <form class="form-horizontal" action="{{url('/addAtm')}}" method="GET">
-                <div class="form-group">
+                @if(Session::has('msg'))
+                <div class="alert alert-success">You have succesfully added New ATM!</div>
+                @endif
+                
+                <div class="form-group @if ($errors-> has('bank')) has-error @endif">
                     <label for="inputName" class="col-sm-2 control-label">Bank</label>
                     <div class="col-sm-10">
-                        <input type="Name" class="form-control" id="bank" name="bank" placeholder="Write the Name of Bank">
+                        <input type="Name" class="form-control" id="bank" name="bank" placeholder="Write the Name of Bank" value="{{ old('bank') }}">
+                        @if ($errors -> has ('bank')) <p class= "help-block error-alert"> {{$errors->first('bank')}} </p> @endif
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group @if ($errors-> has('nama')) has-error @endif">
                     <label for="inputName" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="Name" class="form-control" id="inputName" name="nama" placeholder="Write the Name of ATM">
+                        <input type="Name" class="form-control" id="inputName" name="nama" placeholder="Write the Name of ATM" value"{{ old('nama') }}">
+                         @if ($errors -> has ('nama')) <p class= "help-block error-alert"> {{$errors->first('nama')}} </p> @endif
                     </div>
                 </div>
           
-                <div class="form-group">
+                <div class="form-group @if ($errors-> has('loc')) has-error @endif">
                     <label for="inputLocation" class="col-sm-2 control-label">Location</label>
                     <div class="col-sm-10">
-                        <input type="Location" class="form-control col-md-8" id="inputLocation" name="loc" placeholder="Write the Location of ATM">
+                        <input type="Location" class="form-control col-md-8" id="inputLocation" name="loc" placeholder="Write the Location of ATM" value"{{ old('loc') }}">
+                         @if ($errors -> has ('loc')) <p class= "help-block error-alert"> {{$errors->first('loc')}} </p> @endif
                     </div>
                 </div>
           
-                <div class="form-group">
+                <div class="form-group @if ($errors-> has('jenis')) has-error @endif">
                     <label for="inputFiture" class="col-sm-2 control-label">Fiture</label>
                     <div class="col-sm-3">
                         <label>
-                            <input type="radio" id="setor" value="1" name="jenis"> Setor Tunai
+                            <input type="radio" id="setor" value="1" name="jenis" @if( old('jenis') == "1") checked @endif > Setor Tunai
                         </label>
                     </div>
                     <div class="col-sm-3">
                         <label>
-                            <input type="radio" id="tarik" value="2" name="jenis"> Tarik Tunai
+                            <input type="radio" id="tarik" value="2" name="jenis" @if( old('jenis') == "2") checked @endif > Tarik Tunai
                         </label>
                     </div>
                 </div>
 
                 <noms>
-                    <div class="form-group">
+                    <div class="form-group @if ($errors-> has('nom')) has-error @endif">
                         <label for="inputFiture" class="col-sm-2 control-label">Nominal</label>
                         <div class="checkbox col-sm-5">
                             <input type="Location" class="form-control col-md-8" id="nominal" name="nom" placeholder="50000">
+                             @if ($errors -> has ('nom')) <p class= "help-block error-alert"> {{$errors->first('nom')}} </p> @endif
                         </div>
                     </div>
                 </noms>
@@ -65,13 +73,14 @@
                     <div class="row">
                         <label for="inputLocation" class="col-sm-2 control-label">Latitude</label>
                         <div class="col-sm-3">
-                            <input type="Name" class="form-control col-md-8" id="latLocation" name="lat" readonly>
+                            <input type="Name" class="form-control col-md-8" id="latLocation" name="lat" value"{{ old('lat') }}" readonly>
                         </div>
                         <label for="inputLocation" class="col-sm-2 control-label">Longitude</label>
                         <div class="col-sm-3">
-                            <input type="Name" class="form-control col-md-8" id="lngLocation" name="lng" readonly>
+                            <input type="Name" class="form-control col-md-8" id="lngLocation" name="lng" value"{{ old('lng') }}" readonly>
                         </div>
                     </div>
+                    @if ($errors -> has ('lat') | $errors -> has ('lng')) <label class="col-sm-2 control-label"></label> <font color="red"> {{$errors->first('lat')}} </font> @endif
                 </div>
 
                 <div class="form-group" style="padding-top: 10px">
@@ -87,10 +96,17 @@
             </div>
         </div>
     </div>
-
+   
     <script>
         $(document).ready(function(){
             $("noms").hide();
+            if (document.getElementById("setor").checked == true) {
+                $("noms").hide();
+            }
+
+            if (document.getElementById("tarik").checked == true) {
+                $("noms").show();
+            }
 
             $("#setor").click(function(event){
                 $("noms").hide();
