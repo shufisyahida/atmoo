@@ -16,9 +16,6 @@
                     		<div class="form-group">
                     			<input class="form-control input-sm" type="text" name="bank" id="bank" size="20" placeholder="Write bank name">
                     		</div>
-                    		<div class="form-group">
-                    			<button type="button" id="search" class="btn btn-pink btn-sm">Search</button>
-                    		</div>
                     	</form>
                     </ul>
             </div>
@@ -133,20 +130,36 @@ function getLocation() {
 			});
 		});
 
-		$('#search').click(function(){
+		function search() {
+			
 			$.ajax({
+				dataType: 'json',
 				type: 'GET',
 				url: '{{ url("/searchResult") }}',
 				data: {
 					location: $('#location').val(),
 					bank: $('#bank').val()
 				}
-			}).done(function(response) {
+			})
+			.done(function(response) {
 					
 					console.log(response);
 					
 			});
+			
+		}
+
+		$('#location').keydown(function(e){
+			if(e.which==13){
+				e.preventDefault();
+				search();
+			}
 		});
+
+		$('#location').keyup(function(){
+			search();
+		});
+	
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"

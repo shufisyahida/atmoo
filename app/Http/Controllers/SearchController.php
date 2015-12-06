@@ -54,14 +54,27 @@ class SearchController extends Controller
         $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
 
         foreach ($activeAtms as $activeAtm) {
-            if(strcmp($activeAtm->nama_atm, $atmName) == 0 && strcmp($activeAtm->alamat, $loc) == 0) {
-                array_push($result, $activeAtm);
-                return $result;
+            $isTrueName = strcmp($activeAtm->nama_atm, $atmName) == 0;
+            $isTrueLocation = strcmp($activeAtm->alamat, $loc) == 0;
+            if(isTrueName && isTrueLocation) {
+                array_push($result, ['unique'=>$activeAtm]);
+                return json_encode($result);
             }
+
         }
 
-        array_push($result, false);
-        return $result;
+        foreach ($activeAtms as $activeAtm) {
+            if(strcmp($activeAtm->nama_atm, $atmName) == 0) {
+                array_push($result, ["name"=>$activeAtm]);
+            }
+
+            if(strcmp($activeAtm->alamat, $loc) == 0) {
+                array_push($result, ["location"=>$activeAtm]);
+            }
+
+        }        
+
+        return json_encode($result);
     }
 
     
