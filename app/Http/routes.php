@@ -17,16 +17,16 @@ Route::get('/', function () {
 
 //SearchController
 Route::get('/search', 'SearchController@index');
+Route::get('/searchResult', 'SearchController@searchResult');
 
 //BankController
 Route::get('/getBankList', 'BankController@index');
 
+//AtmController
+Route::get('/getAtmList', 'AtmController@index');
+
 Route::get('/formadd', function () {
     return view('formadd');
-});
-
-Route::get('/searchs', function(){
-	return view('searchfront');
 });
 
 

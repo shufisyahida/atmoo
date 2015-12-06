@@ -26,6 +26,45 @@ class SearchController extends Controller
         return view('search', ['atms' => $atm]);
     }
 
+    public function getAtmNameAndLocation($str) {
+            $strlen = strlen($str);
+            $index = 0;
+            for($i = 0; $i < $strlen; $i++) {
+                $char = substr($str, $i, 1);
+                if(strcmp($char,",") == 0) {
+                    $index += $i;
+                    break;
+                }
+            }
+            $result = Array('name'=>substr($str, 0, $index), 'location'=>substr($str, $index+1));
+            return $result;
+    }
+
+    public function searchResult(Request $request) {
+        $location = $request->input('location');
+        $bank = $request->input('bank');
+        
+        $data = SearchController::getAtmNameAndLocation($location);
+
+        $atmName = $data['name'];
+        $loc = $data['location'];
+
+        $result = Array();
+        
+        $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        foreach ($activeAtms as $activeAtm) {
+            if(strcmp($activeAtm['name'], $atmName) == 0 && strcmp($activeAtm['location'], $loc) == 0) {
+                array_push($result, $activeAtm);
+                return $result;
+            }
+        }
+
+        array_push($result, ['false']);
+        return $result;
+    }
+
+    
+
     /**
      * Show the form for creating a new resource.
      *
