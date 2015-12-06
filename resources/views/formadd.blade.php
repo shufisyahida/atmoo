@@ -16,25 +16,25 @@
         <div class="card">
             <h3 class="text-center">Please Fill The Form</h3><br>
             <div class="col-md-6">
-            <form class="form-horizontal">
+            <form class="form-horizontal" action="{{url('/addAtm')}}" method="GET">
                 <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Bank</label>
                     <div class="col-sm-10">
-                        <input type="Name" class="form-control" id="bank" placeholder="Write the Name of Bank">
+                        <input type="Name" class="form-control" id="bank" name="bank" placeholder="Write the Name of Bank">
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="inputName" class="col-sm-2 control-label">Name</label>
                     <div class="col-sm-10">
-                        <input type="Name" class="form-control" id="inputName" placeholder="Write the Name of ATM">
+                        <input type="Name" class="form-control" id="inputName" name="nama" placeholder="Write the Name of ATM">
                     </div>
                 </div>
           
                 <div class="form-group">
                     <label for="inputLocation" class="col-sm-2 control-label">Location</label>
                     <div class="col-sm-10">
-                        <input type="Location" class="form-control col-md-8" id="inputLocation" placeholder="Write the Location of ATM">
+                        <input type="Location" class="form-control col-md-8" id="inputLocation" name="loc" placeholder="Write the Location of ATM">
                     </div>
                 </div>
           
@@ -56,7 +56,7 @@
                     <div class="form-group">
                         <label for="inputFiture" class="col-sm-2 control-label">Nominal</label>
                         <div class="checkbox col-sm-5">
-                            <input type="Location" class="form-control col-md-8" id="nominal" placeholder="50000">
+                            <input type="Location" class="form-control col-md-8" id="nominal" name="nom" placeholder="50000">
                         </div>
                     </div>
                 </noms>
@@ -65,11 +65,11 @@
                     <div class="row">
                         <label for="inputLocation" class="col-sm-2 control-label">Latitude</label>
                         <div class="col-sm-3">
-                            <input type="lat" class="form-control col-md-8" id="latLocation" disabled>
+                            <input type="Name" class="form-control col-md-8" id="latLocation" name="lat" readonly>
                         </div>
                         <label for="inputLocation" class="col-sm-2 control-label">Longitude</label>
                         <div class="col-sm-3">
-                            <input type="lng" class="form-control col-md-8" id="lngLocation" disabled>
+                            <input type="Name" class="form-control col-md-8" id="lngLocation" name="lng" readonly>
                         </div>
                     </div>
                 </div>
@@ -130,7 +130,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '{{ url("/getBankList") }}'
+            url: '{{ url("/addBankList") }}'
         }).done(function(response) {
                 console.log(response);
                 var availableBanks = response;
