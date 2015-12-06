@@ -8,7 +8,7 @@
             <div class="row">
                 <span class="logo"><a href="{{url('/')}}">ATMoo</a></span>
                     <ul class="nav navbar-nav navbar-right">
-                    	<form class="form-inline" style="padding-top:15px" method="GET" action="{{url('/searchResult')}}">
+                    	<form class="form-inline" style="padding-top:15px">
                     		<input type="hidden" name="_token" value="{{ csrf_token() }}">
                     		<div class="form-group">
                     			<input class="form-control input-sm" type="text" name="location" size="70" id="location" placeholder="Write location">
@@ -17,7 +17,7 @@
                     			<input class="form-control input-sm" type="text" name="bank" id="bank" size="20" placeholder="Write bank name">
                     		</div>
                     		<div class="form-group">
-                    			<button type="submit" class="btn btn-pink btn-sm">Search</button>
+                    			<button type="button" id="search" class="btn btn-pink btn-sm">Search</button>
                     		</div>
                     	</form>
                     </ul>
@@ -116,7 +116,6 @@ function getLocation() {
 			type: 'GET',
 			url: '{{ url("/getBankList") }}'
 		}).done(function(response) {
-				console.log(response);
 				var availableBanks = response;
 				$( "#bank" ).autocomplete({
 				      source: availableBanks
@@ -127,10 +126,25 @@ function getLocation() {
 			type: 'GET',
 			url: '{{ url("/getAtmList") }}'
 		}).done(function(response) {
-				console.log(response);
 				var availableATMs = response;
 				$( "#location" ).autocomplete({
-				      source: availableATMs
+				      source: availableATMs,
+				      autofocus: true
+			});
+		});
+
+		$('#search').click(function(){
+			$.ajax({
+				type: 'GET',
+				url: '{{ url("/searchResult") }}',
+				data: {
+					location: $('#location').val(),
+					bank: $('#bank').val()
+				}
+			}).done(function(response) {
+					
+					console.log(response);
+					
 			});
 		});
 	</script>

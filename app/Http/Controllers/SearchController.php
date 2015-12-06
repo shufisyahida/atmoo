@@ -36,7 +36,7 @@ class SearchController extends Controller
                     break;
                 }
             }
-            $result = Array('name'=>substr($str, 0, $index), 'location'=>substr($str, $index+1));
+            $result = Array('name'=>substr($str, 0, $index), 'location'=>substr($str, $index+2));
             return $result;
     }
 
@@ -52,14 +52,15 @@ class SearchController extends Controller
         $result = Array();
         
         $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+
         foreach ($activeAtms as $activeAtm) {
-            if(strcmp($activeAtm['name'], $atmName) == 0 && strcmp($activeAtm['location'], $loc) == 0) {
+            if(strcmp($activeAtm->nama_atm, $atmName) == 0 && strcmp($activeAtm->alamat, $loc) == 0) {
                 array_push($result, $activeAtm);
                 return $result;
             }
         }
 
-        array_push($result, ['false']);
+        array_push($result, false);
         return $result;
     }
 
