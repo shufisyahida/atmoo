@@ -46,6 +46,8 @@
 
 <script>
     var map;
+    var lati;
+    var longi;
 
 function getLocation() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -56,17 +58,55 @@ function getLocation() {
  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
-                        var lat = position.coords.latitude;
-                        var lng= position.coords.longitude;
-                        addMarker(lat,lng,"You are here","Here");
+                         lati = position.coords.latitude;
+                         longi= position.coords.longitude;
+                        addMarker(lati,longi,"You are here","Here");
+                        getNear(lati,longi);
                         
                 }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
             }else{
                 alert('geolocation is unsupported?');
             }
             alert('alert 2: ' + lat + ', ' + lng);
-        }
+        
+       
 
+        }
+	
+	function getNear(Latitude, Longitude) {
+
+				var latitu = Latitude;
+                var longitu = Longitude;
+                //alert(latitu);
+                //console.log(JSON.parse(planner));
+                $.ajax({
+                    method: "GET",
+                    url: "{{url('/near')}}",
+
+                    dataType: 'json',
+                    data: { 'lat': latitu, 'long':longitu  }
+
+                }).done(function(response) {
+				console.log(response);
+				alert("test");
+				var atmnear = response;
+				for(i in atmear) {
+					 var lat = atmnear[i].lat;
+			          var lng = atmnear[i].lng;
+			          /*var $nama = atmnear[i].nama;
+			          var $nama_alamat = atmnear[i].nama_alamat;
+			          var $add = atmnear[i].alamat;
+
+*/				
+					alert(lat,lng);
+					addMarker(lat, lng, "test", "yeye");
+				}
+			          
+			});
+		
+	}
+
+           
 </script>
   <!-- mumus -->
 	<script>

@@ -12,10 +12,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        Model::unguard();
+        //Model::unguard();
 
+        $this->call(BANKSeeder::class);
         $this->call(ATMSeeder::class);
 
-        Model::reguard();
+        //Model::reguard();
     }
 }
