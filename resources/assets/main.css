@@ -9,6 +9,11 @@ html, body {
 	padding: 0;
 }
 
+#map-add{
+	width:100px;
+	height: 500px;
+}
+
 .map-home {
 	height: 90%;
 }
@@ -73,10 +78,6 @@ html, body {
 	height: 80%;
 }
 
-.map-add{
-	height: 30%;
-}
-
 .btn-circle.btn-xl {
   margin-left: 10px;
   width: 70px;
@@ -89,6 +90,7 @@ html, body {
   color: #f50057 !important;
   background: #212121;
 }
+
 
 
 

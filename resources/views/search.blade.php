@@ -31,7 +31,7 @@
 
 @section('content')
 
-     <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><i class="glyphicon glyphicon-map-marker"></i></button>
+     <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><img src="{{url('../resources/assets/img/clocation.png')}}" style="width:30px; height:30px"></button>
     
 
 	<div class="map" id="map"></div>
@@ -131,11 +131,13 @@ function getLocation() {
 		}
 
 		function addMarker(lt, lg, msg, add){
-	      	var infoBank = new google.maps.InfoWindow();
+	    var infoBank = new google.maps.InfoWindow();
+      var image = "{{asset('pin/location_2.png')}}";
 			var myLatLng = {lat: lt, lng: lg};
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
+        icon: image,
 				title: msg
 			});
 	      	google.maps.event.addListener(marker, 'click', function() {
