@@ -21,9 +21,11 @@ Route::get('/searchResult', 'SearchController@searchResult');
 
 //BankController
 Route::get('/getBankList', 'BankController@index');
+Route::get('/addBankList', 'BankController@add');
 
 //AtmController
 Route::get('/getAtmList', 'AtmController@index');
+Route::get('/addAtm', 'AtmController@store');
 
 Route::get('/formadd', function () {
     return view('formadd');

@@ -88,11 +88,13 @@ function getLocation() {
 		}
 
 		function addMarker(lt, lg, msg, add){
-	      	var infoBank = new google.maps.InfoWindow();
+	    var infoBank = new google.maps.InfoWindow();
+      var image = "{{asset('pin/location_2.png')}}";
 			var myLatLng = {lat: lt, lng: lg};
 			var marker = new google.maps.Marker({
 				position: myLatLng,
 				map: map,
+        icon: image,
 				title: msg
 			});
 	      	google.maps.event.addListener(marker, 'click', function() {
