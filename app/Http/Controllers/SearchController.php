@@ -36,7 +36,7 @@ class SearchController extends Controller
                     break;
                 }
             }
-            $result = Array('name'=>substr($str, 0, $index), 'location'=>substr($str, $index+1));
+            $result = Array('name'=>substr($str, 0, $index), 'location'=>substr($str, $index+2));
             return $result;
     }
 
@@ -52,15 +52,32 @@ class SearchController extends Controller
         $result = Array();
         
         $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+
         foreach ($activeAtms as $activeAtm) {
-            if(strcmp($activeAtm['name'], $atmName) == 0 && strcmp($activeAtm['location'], $loc) == 0) {
-                array_push($result, $activeAtm);
-                return $result;
+            $isTrueAtm = strcmp($activeAtm->nama_atm, $atmName) == 0;
+            $isTrueBank = strcmp($activeAtm->nama, $bank) == 0;
+            if($isTrueAtm && $isTrueBank) {
+                array_push($result, ['unique'=>$activeAtm]);
+                return json_encode($result);
+            }
+
+        }
+
+        $isLocationNull = strcmp($location, "") == 0;
+        $isBankNull = strcmp($bank, "") == 0;
+        if(!$isLocationNull && !$isBankNull) return json_encode(["message"=>"No Match Found"]);
+
+        foreach ($activeAtms as $activeAtm) {
+            if(strcmp($activeAtm->nama_atm, $atmName) == 0) {
+                array_push($result, ["location"=>$activeAtm]);
+            }
+
+            if(strcmp($activeAtm->nama, $bank) == 0) {
+                array_push($result, ["bank"=>$activeAtm]);
             }
         }
 
-        array_push($result, ['false']);
-        return $result;
+        return json_encode($result);
     }
 
     

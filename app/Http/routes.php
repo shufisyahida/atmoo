@@ -43,6 +43,9 @@ Route::controllers([
   'password' => 'Auth\PasswordController',
 ]);
 
+Route::get('/info', function () {
+    return view('info');
+});
 
 
 
