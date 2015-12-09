@@ -84,24 +84,24 @@ function getLocation() {
   				var lat = parseFloat({{$atm->lat}});
   				var lng = parseFloat({{$atm->lng}});
   				var location = {lat: lat, lng: lng}
-  				var msg = "{{$atm->nama}} -"+" {{$atm->nama_atm}}";
-          		var add = "{{$atm->alamat}}";
-  				addMarker(location, msg, add);
+  				var message = "{{$atm->nama}} -"+" {{$atm->nama_atm}}";
+          		var address = "{{$atm->alamat}}";
+  				addMarker(location, message, address);
   			@endforeach
 		}
 
 		// Adds a marker to the map and push to the array.
-		function addMarker(location, msg, add) {
+		function addMarker(location, message, address) {
 		  	var infoBank = new google.maps.InfoWindow();
       		var image = "{{asset('pin/location_2.png')}}";
 			var marker = new google.maps.Marker({
 				position: location,
 				map: map,
         		icon: image,
-				title: msg
+				title: message
 			});
 	      	google.maps.event.addListener(marker, 'click', function() {
-	        	infoBank.setContent('<div><strong>' + msg + '</strong><br>' + 'Alamat: ' + add + '<br>' +'</div>');
+	        	infoBank.setContent('<div><strong>' + message + '</strong><br>' + 'Alamat: ' + address + '<br>' +'</div>');
 	        	infoBank.open(map, this);
 	      	});
 
@@ -171,8 +171,45 @@ function getLocation() {
 				}
 			})
 			.done(function(response) {
-					
 					console.log(response);
+					deleteMarkers();
+					if(response.hasOwnProperty('message')) {
+						alert('Sorry, No Match Found.');
+					}
+
+					if (response[0].hasOwnProperty('unique')) {
+						var data = response[0].unique;
+						var location = {lat: Number(data.lat), lng: Number(data.lng)}
+		  				var message = data.nama + " -" + data.nama_atm;
+		          		var address = data.alamat;
+		          		map.setCenter(location);
+		  				addMarker(location, message, address);
+					}
+
+					if(response[0].hasOwnProperty('location')) {
+						var data = response;
+						for(var i = 0; i < data.length; i++) {
+							var location = {lat: Number(data.lat), lng: Number(data.lng)}
+			  				var message = data.nama + " -" + data.nama_atm;
+			          		var address = data.alamat;
+			  				addMarker(location, message, address);
+						}
+					}
+
+					if(response[0].hasOwnProperty('bank')) {
+						var data = response;
+						var bounds = new google.maps.LatLngBounds();
+						for(var i = 0; i < data.length; i++) {
+							var location = {lat: Number(data.lat), lng: Number(data.lng)}
+			  				var message = data.nama + " -" + data.nama_atm;
+			          		var address = data.alamat;
+			  				addMarker(location, message, address);
+						}
+						console.log(markers);
+						mergeSort(markers);
+						console.log(markers);
+						//map.fitBounds(bounds);
+					}
 					
 			});
 			
@@ -199,7 +236,40 @@ function getLocation() {
 				$(this).trigger("enterKey");
 			}
 		});
-	</script>
+
+		function mergeSortMarkers()
+		{
+		    if (markers.length < 2)
+		        return markers;
+		 
+		    var middle = parseInt(markers.length / 2);
+		    var left   = markers.slice(0, middle);
+		    var right  = markers.slice(middle, markers.length);
+		 
+		    return merge(mergeSort(left), mergeSort(right));
+		}
+		 
+		function mergeMarkers(left, right)
+		{
+		    var result = [];
+		 
+		    while (left.length && right.length) {
+		        if (left.position <= right.position) {
+		            result.push(left.shift());
+		        } else {
+		            result.push(right.shift());
+		        }
+		    }
+		 
+		    while (left.length)
+		        result.push(left.shift());
+		 
+		    while (right.length)
+		        result.push(right.shift());
+		 
+		    return result;
+		}
+		</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"
         async defe></script>
