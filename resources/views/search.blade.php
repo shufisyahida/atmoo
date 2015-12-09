@@ -57,7 +57,8 @@ function getLocation() {
         navigator.geolocation.getCurrentPosition(function(position){
                          lati = position.coords.latitude;
                          longi= position.coords.longitude;
-                        addMarker(lati,longi,"You are here","Here");
+                         var location = {lat: lati, lng: longi}
+                        addMarker(location,"You are here","Here");
                         getNear(lati,longi);
                         
                 }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
@@ -106,7 +107,8 @@ function getLocation() {
               for (i = 0; i < 10; i++) { 
                 var msg = nama[i]+"-"+namaatm[i];
                 var add = alamat[i];
-                addMarker(lat[i], lng[i], msg, add);
+                var location = {lat: lat[i], lng: lng[i]}
+                addMarker(location, msg, add);
               }
 	}
 
@@ -137,17 +139,17 @@ function getLocation() {
   			@endforeach
 		}
 
-<<<<<<< HEAD
-		function addMarker(lt, lg, msg, add){
+
+		/*function addMarker(lt, lg, msg, add){
 	    var infoBank = new google.maps.InfoWindow();
       	var image = "{{asset('pin/location_2.png')}}";
-			var myLatLng = {lat: lt, lng: lg};
-=======
+			var myLatLng = {lat: lt, lng: lg};*/
+
 		// Adds a marker to the map and push to the array.
 		function addMarker(location, msg, add) {
 		  	var infoBank = new google.maps.InfoWindow();
       		var image = "{{asset('pin/location_2.png')}}";
->>>>>>> 00181dec5cb9d7e287d00e3b6f66064d8428e2fb
+
 			var marker = new google.maps.Marker({
 				position: location,
 				map: map,
