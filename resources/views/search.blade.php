@@ -205,14 +205,55 @@ function getLocation() {
 			          		var address = data.alamat;
 			  				addMarker(location, message, address);
 						}
-						console.log(markers);
-						mergeSort(markers);
-						console.log(markers);
-						//map.fitBounds(bounds);
+						var boundary = getBoundary();
+						bounds.extend(boundary[0]);
+						bounds.extend(boundary[1]);
+						bounds.extend(boundary[2]);
+						bounds.extend(boundary[3]);
+						map.fitBounds(bounds);
 					}
 					
 			});
 			
+		}
+
+		function getBoundary() {
+			var lowestLat = Number.POSITIVE_INFINITY;
+			var lowestLng = Number.POSITIVE_INFINITY;
+			var highestLat = Number.NEGATIVE_INFINITY;
+			var highestLng = Number.NEGATIVE_INFINITY;
+			var tmpLat;
+			var tmpLng;
+			var lowestLatPos;
+			var lowestLngPos;
+			var highestLatPos;
+			var highestLngPos;
+			for (var i=markers.length-1; i>=0; i--) {
+
+			    var pos = markers[i].position;
+			    console.log(pos);
+			    tmpLat = pos.lat();
+			    tmpLng = pos.lng();
+			    console.log(tmpLng);
+			    if (tmpLat < lowestLat) {
+			    	lowestLat = tmpLat;
+			    	lowestLatPos = pos;
+			    }
+			    if (tmpLng < lowestLng) {
+			    	lowestLng = tmpLng;
+			    	lowestLngPos = pos;
+			    }
+			    if (tmpLat > highestLat) {
+			    	highestLat = tmpLat;
+			    	highestLatPos = pos;
+			    }
+			    if (tmpLng > highestLng) {
+			    	highestLng = tmpLng;
+			    	highestLngPos = pos;
+			    }
+			}
+			console.log(lowestLatPos, lowestLngPos, highestLatPos, highestLngPos);
+			return (lowestLatPos, lowestLngPos, highestLatPos, highestLngPos);
 		}
 
 		$('#location').bind("enterKey",function(e){
@@ -237,38 +278,7 @@ function getLocation() {
 			}
 		});
 
-		function mergeSortMarkers()
-		{
-		    if (markers.length < 2)
-		        return markers;
-		 
-		    var middle = parseInt(markers.length / 2);
-		    var left   = markers.slice(0, middle);
-		    var right  = markers.slice(middle, markers.length);
-		 
-		    return merge(mergeSort(left), mergeSort(right));
-		}
-		 
-		function mergeMarkers(left, right)
-		{
-		    var result = [];
-		 
-		    while (left.length && right.length) {
-		        if (left.position <= right.position) {
-		            result.push(left.shift());
-		        } else {
-		            result.push(right.shift());
-		        }
-		    }
-		 
-		    while (left.length)
-		        result.push(left.shift());
-		 
-		    while (right.length)
-		        result.push(right.shift());
-		 
-		    return result;
-		}
+
 		</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"
