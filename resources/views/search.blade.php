@@ -182,14 +182,15 @@ function getLocation() {
 						var location = {lat: Number(data.lat), lng: Number(data.lng)}
 		  				var message = data.nama + " -" + data.nama_atm;
 		          		var address = data.alamat;
-		          		map.setCenter(location);
+		          		//map.setCenter(location);
 		  				addMarker(location, message, address);
+		  				AutoCenter();
 					}
 
 					if(response[0].hasOwnProperty('location')) {
 						var data = response;
 						for(var i = 0; i < data.length; i++) {
-							var location = {lat: Number(data.lat), lng: Number(data.lng)}
+							var location = {lat: Number(data.lat), lng: Number(data.lng)};
 			  				var message = data.nama + " -" + data.nama_atm;
 			          		var address = data.alamat;
 			  				addMarker(location, message, address);
@@ -199,62 +200,82 @@ function getLocation() {
 					if(response[0].hasOwnProperty('bank')) {
 						var data = response;
 						var bounds = new google.maps.LatLngBounds();
+						var center;
 						for(var i = 0; i < data.length; i++) {
-							var location = {lat: Number(data.lat), lng: Number(data.lng)}
+
+							var location = {lat: Number(data.lat), lng: Number(data.lng)};
+							//if(i === 0) {center = location;}
 			  				var message = data.nama + " -" + data.nama_atm;
 			          		var address = data.alamat;
 			  				addMarker(location, message, address);
+			  				// if (i === 0 || i === 1 || i === 2) {
+			  				// 	bounds.extend(new google.maps.LatLng(Number(data.lat), Number(data.lng)));	
+			  				// }
 						}
-						var boundary = getBoundary();
-						bounds.extend(boundary[0]);
-						bounds.extend(boundary[1]);
-						bounds.extend(boundary[2]);
-						bounds.extend(boundary[3]);
-						map.fitBounds(bounds);
+						//var boundary = getBoundary();
+						// bounds.extend(boundary[0]);
+						// bounds.extend(boundary[1]);
+						// bounds.extend(boundary[2]);
+						// bounds.extend(boundary[3]);
+						// map.fitBounds(bounds);
+						//map.setCenter(center);
+						AutoCenter();
 					}
 					
 			});
 			
 		}
 
-		function getBoundary() {
-			var lowestLat = Number.POSITIVE_INFINITY;
-			var lowestLng = Number.POSITIVE_INFINITY;
-			var highestLat = Number.NEGATIVE_INFINITY;
-			var highestLng = Number.NEGATIVE_INFINITY;
-			var tmpLat;
-			var tmpLng;
-			var lowestLatPos;
-			var lowestLngPos;
-			var highestLatPos;
-			var highestLngPos;
-			for (var i=markers.length-1; i>=0; i--) {
+		function AutoCenter() {
+	    	var bounds = new google.maps.LatLngBounds();
+	    	console.log("coba");
+	    	for (var i = 0; i < markers.length; i++) {
+	    		console.log(i);
+	    		bounds.extend(markers[i].getPosition());
+	    	}
+	    	console.log('cobalago');
+	    	map.fitBounds(bounds);
+	    	console.log('cobalagooo');
+	  	}
 
-			    var pos = markers[i].position;
-			    console.log(pos);
-			    tmpLat = pos.lat();
-			    tmpLng = pos.lng();
-			    console.log(tmpLng);
-			    if (tmpLat < lowestLat) {
-			    	lowestLat = tmpLat;
-			    	lowestLatPos = pos;
-			    }
-			    if (tmpLng < lowestLng) {
-			    	lowestLng = tmpLng;
-			    	lowestLngPos = pos;
-			    }
-			    if (tmpLat > highestLat) {
-			    	highestLat = tmpLat;
-			    	highestLatPos = pos;
-			    }
-			    if (tmpLng > highestLng) {
-			    	highestLng = tmpLng;
-			    	highestLngPos = pos;
-			    }
-			}
-			console.log(lowestLatPos, lowestLngPos, highestLatPos, highestLngPos);
-			return (lowestLatPos, lowestLngPos, highestLatPos, highestLngPos);
-		}
+		// function getBoundary() {
+		// 	var lowestLat = Number.POSITIVE_INFINITY;
+		// 	var lowestLng = Number.POSITIVE_INFINITY;
+		// 	var highestLat = Number.NEGATIVE_INFINITY;
+		// 	var highestLng = Number.NEGATIVE_INFINITY;
+		// 	var tmpLat;
+		// 	var tmpLng;
+		// 	var lowestLatPos;
+		// 	var lowestLngPos;
+		// 	var highestLatPos;
+		// 	var highestLngPos;
+		// 	for (var i=markers.length-1; i>=0; i--) {
+
+		// 	    var pos = markers[i].position;
+		// 	    console.log(pos);
+		// 	    tmpLat = pos.lat();
+		// 	    tmpLng = pos.lng();
+		// 	    console.log(tmpLng);
+		// 	    if (tmpLat < lowestLat) {
+		// 	    	lowestLat = tmpLat;
+		// 	    	lowestLatPos = pos;
+		// 	    }
+		// 	    if (tmpLng < lowestLng) {
+		// 	    	lowestLng = tmpLng;
+		// 	    	lowestLngPos = pos;
+		// 	    }
+		// 	    if (tmpLat > highestLat) {
+		// 	    	highestLat = tmpLat;
+		// 	    	highestLatPos = pos;
+		// 	    }
+		// 	    if (tmpLng > highestLng) {
+		// 	    	highestLng = tmpLng;
+		// 	    	highestLngPos = pos;
+		// 	    }
+		// 	}
+		// 	console.log(lowestLatPos, lowestLngPos, highestLatPos, highestLngPos);
+		// 	return (lowestLatPos, lowestLngPos, highestLatPos, highestLngPos);
+		// }
 
 		$('#location').bind("enterKey",function(e){
 			search();
