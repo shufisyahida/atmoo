@@ -26,14 +26,14 @@ class SearchController extends Controller
         return view('search', ['atms' => $atm]);
     }
 
-     public function near(Request $request) 
+     public function near() 
      {
-        $data = Input::all();
-        $Longi = $data['long'];
-        $Lati = $data['lat'];
-        $atmnear = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
-        //return view('search', ['atmnear' => $atm]);
-        echo json_encode($atmnear);
+        
+        $Longi = $_GET['long'];
+        $Lati = $_GET['lat'];        
+        $atmnear = DB::table('atm')->select('*',DB::raw('(6371 * acos(cos(radians('.$Lati.'))*cos(radians(lat))*cos(radians(lng)-radians('.$Longi.'))+sin(radians('.$Lati.'))*sin(radians(lat)))) as distance'))->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->orderBy('distance')->having('distance', '<', 5)->get();
+        return $atmnear;
+       
     }
 
     public function getAtmNameAndLocation($str) {

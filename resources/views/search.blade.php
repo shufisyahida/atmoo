@@ -76,34 +76,41 @@ function getLocation() {
 	function getNear(Latitude, Longitude) {
 
 				var latitu = Latitude;
-                var longitu = Longitude;
-                //alert(latitu);
-                //console.log(JSON.parse(planner));
+        var longitu = Longitude;
+                
+                var lat=[];
+                var lng=[];
+                var nama=[];
+                var namaatm=[];
+                var alamat=[];
                 $.ajax({
                     method: "GET",
                     url: "{{url('/near')}}",
 
                     dataType: 'json',
-                    data: { 'lat': latitu, 'long':longitu  }
+                    data: { 'lat': latitu, 'long':longitu  },
+                    success: function(response) {
+                 		//alert(response);
+                 		for(i in response) {
 
-                }).done(function(response) {
-				console.log(response);
-				alert("test");
-				var atmnear = response;
-				for(i in atmear) {
-					 var lat = atmnear[i].lat;
-			          var lng = atmnear[i].lng;
-			          /*var $nama = atmnear[i].nama;
-			          var $nama_alamat = atmnear[i].nama_alamat;
-			          var $add = atmnear[i].alamat;
+          					   lat[i]=parseFloat(response[i].lat);
+          			       lng[i]=parseFloat(response[i].lng);
+                       nama[i]=response[i].nama;
+                       namaatm[i]=response[i].nama_atm;
+                       alamat[i]=response[i].alamat;
+          			       //addMarker(response[i].lat, response[i].lng, 0, 0);
+                     }
+             			}
 
-*/				
-					alert(lat,lng);
-					addMarker(lat, lng, "test", "yeye");
-				}
-			          
-			});
-		
+
+                })
+              //alert(lat);
+              alert("We've Found Your Location");
+              for (i = 0; i < 10; i++) { 
+                var msg = nama[i]+"-"+namaatm[i];
+                var add = alamat[i];
+                addMarker(lat[i], lng[i], msg, add);
+              }
 	}
 
            
@@ -132,7 +139,7 @@ function getLocation() {
 
 		function addMarker(lt, lg, msg, add){
 	    var infoBank = new google.maps.InfoWindow();
-      var image = "{{asset('pin/location_2.png')}}";
+      	var image = "{{asset('pin/location_2.png')}}";
 			var myLatLng = {lat: lt, lng: lg};
 			var marker = new google.maps.Marker({
 				position: myLatLng,
