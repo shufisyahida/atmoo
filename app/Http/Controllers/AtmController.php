@@ -126,7 +126,10 @@ class AtmController extends Controller
      */
     public function edit($id)
     {
-        //
+        $atm = Atm::find($id);
+        $atm->status = '1';
+        $atm->save();
+        return redirect()->back()->with('msg', 'Atm berhasil diverifikasi');
     }
 
     /**
@@ -149,6 +152,9 @@ class AtmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $atm = Atm::find($id);
+        $atm->delete();
+        return redirect()->back()->with('msg', 'Atm berhasil dihapus');
+
     }
 }

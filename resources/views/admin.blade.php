@@ -45,6 +45,10 @@
         <li><a data-toggle="tab" href="#menu1">Need Verification</a></li>
     </ul>
 
+    @if(Session::has('msg'))
+        <br><div class="alert alert-success">{{ Session::get('msg') }}</div>
+    @endif
+
     <div class="tab-content">
         <div id="home" class="tab-pane fade in active">
             <h3>ATM: Approved</h3>
@@ -61,7 +65,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $i = 1; ?>
+                    <?php $i = 1;?>
                     @foreach($atm as $atm)
                     <tr>
                         <td><?php echo $i; ?></td>
@@ -70,8 +74,29 @@
                         <td>{{$atm->alamat}}</td>
                         <td>{{$atm->lng}}</td>
                         <td>{{$atm->lat}}</d>
-                        <td><button class="btn btn-danger btn-xs">Hapus</button></td>
+                        <td><button class="btn btn-danger btn-xs" data-toggle="modal" data-target="#delete" type="button">Hapus</button></td>
                         <?php $i++; ?>
+                        <!-- Modal -->
+                          <div class="modal fade" id="delete" role="dialog">
+                            <div class="modal-dialog">
+                            
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Konfirmasi Hapus</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Apakah Anda yakin akan menghapus {{$atm->nama}} - {{$atm->nama_atm}} ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="{{url('/delete/'.$atm->ida)}}"><button type="button" class="btn btn-success">Ya</button></a>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
+                                </div>
+                              </div>
+                              
+                            </div>
+                          </div>
                     </tr>
                     @endforeach
                 </tbody>
@@ -92,7 +117,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php $o = 1; ?>
+                    <?php $o = 1;?>
                     @foreach($atmv as $atm)
                     <tr>
                         <td><?php echo $o; ?></td>
@@ -101,14 +126,36 @@
                         <td>{{$atm->alamat}}</td>
                         <td>{{$atm->lng}}</td>
                         <td>{{$atm->lat}}</d>
-                        <td><button class="btn btn-success btn-xs">Verifikasi</button></td>
+                        <td><button class="btn btn-success btn-xs" data-toggle="modal" data-target="#verif" type="button">Verifikasi</button></td>
                         <?php $o++; ?>
+                        <!-- Modal -->
+                          <div class="modal fade" id="verif" role="dialog">
+                            <div class="modal-dialog">
+                            
+                              <!-- Modal content-->
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                  <h4 class="modal-title">Konfirmasi Verifikasi</h4>
+                                </div>
+                                <div class="modal-body">
+                                  <p>Apakah Anda yakin akan melakukan verifikasi {{$atm->nama}} - {{$atm->nama_atm}} ?</p>
+                                </div>
+                                <div class="modal-footer">
+                                  <a href="{{url('/edit/'.$atm->ida)}}"<button type="button" class="btn btn-success">Ya</button></a>
+                                  <button type="button" class="btn btn-danger" data-dismiss="modal">Tidak</button>
+                                </div>
+                              </div>
+                              
+                            </div>
+                          </div>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
         </div>
     </div>
+
     @endif
 </div>
 @endsection

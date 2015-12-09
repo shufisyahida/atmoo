@@ -30,6 +30,8 @@ Route::get('/getAtmList', 'AtmController@index');
 
 Route::get('/addAtm', 'AtmController@store');
 Route::get('/home', 'AtmController@admin');
+Route::get('/delete/{atm}', 'AtmController@destroy');
+Route::get('/edit/{atm}', 'AtmController@edit');
 
 
 Route::get('/formadd', function () {
