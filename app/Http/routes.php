@@ -31,5 +31,9 @@ Route::get('/formadd', function () {
     return view('formadd');
 });
 
+Route::get('/info', function () {
+    return view('info');
+});
+
 
 
