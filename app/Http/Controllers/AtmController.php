@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Atm;
 use App\Info;
+use DB;
 use Validator;
 
 use App\Http\Requests;
@@ -25,6 +26,12 @@ class AtmController extends Controller
             array_push($results, $atm->nama_atm . ", " . $atm->alamat);
         }
         return $results;
+    }
+
+    public function admin(){
+        return view('admin', ['atm' => DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->get(),
+                'atmv' => DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('atm.status', '=', '0')->get()
+            ]);
     }
 
     /**
