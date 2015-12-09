@@ -90,8 +90,8 @@ class AtmController extends Controller
         $atm->status = '0';
         $atm->save();
 
-        $lastAtm = Atm::orderBy('id', 'desc')->first();
-        $idLastAtm = $lastAtm->id;
+        $lastAtm = Atm::orderBy('ida', 'desc')->first();
+        $idLastAtm = $lastAtm->ida;
 
         $info = new Info();
         $info->id_atm = $idLastAtm;
