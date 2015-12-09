@@ -15,44 +15,42 @@
     <div class="container map">
         <div class="card">
             <h3 class="text-center">ATM's Information</h3><br>
-            <div class="col-md-6">
+            <div class="col-md-6 col-xs-offset-4">
             <form class="form-horizontal">
-                <fieldset disabled>
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Bank</label>
+                <div class="control">
+                    <label for="inputName" class="col-sm-2 control-label">Bank</label>
                         <div class="col-sm-10">
-                            <p class="form-control-static">koding nama Bank</p>
+                            <p class="form-control-static">nama</p>
                         </div>
-                    </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="inputName" class="col-sm-2 control-label">Name</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">koding nama ATM</p>
-                        </div>
+                <div class="control">
+                    <label for="inputName" class="col-sm-2 control-label">Name</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">ATM</p>
                     </div>
+                </div>
           
-                    <div class="form-group">
-                        <label for="inputLocation" class="col-sm-2 control-label">Location</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">koding Lokasi</p>
-                        </div>
+                <div class="control">
+                    <label for="inputName" class="col-sm-2 control-label">Lokasi</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">Lokasi</p>
                     </div>
+                </div>
           
-                    <div class="form-group">
-                        <label for="inputFiture" class="col-sm-2 control-label">Fiture</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">koding Setor Tunai dan Tarik Tunai</p>
-                        </div>
+                <div class="control">
+                    <label for="inputFiture" class="col-sm-2 control-label">Fiture</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">koding Setor Tunai dan Tarik Tunai</p>
                     </div>
+                </div>
 
-                    <div class="form-group">
-                        <label for="inputFiture" class="col-sm-2 control-label">Nominal</label>
-                        <div class="col-sm-10">
-                            <p class="form-control-static">koding 50ribu dll</p>
-                        </div>
+                <div class="control">
+                    <label for="inputFiture" class="col-sm-2 control-label">Nominal</label>
+                    <div class="col-sm-10">
+                        <p class="form-control-static">koding 50ribu dll</p>
                     </div>
-                </fieldset> 
+                </div>
             </form>
             
             </div>

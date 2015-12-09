@@ -25,8 +25,12 @@ Route::get('/addBankList', 'BankController@add');
 
 //AtmController
 Route::get('/getAtmList', 'AtmController@index');
+
+ Route::get('near', 'SearchController@near');
+
 Route::get('/addAtm', 'AtmController@store');
 Route::get('/home', 'AtmController@admin');
+
 
 Route::get('/formadd', function () {
     return view('formadd');
