@@ -43,6 +43,8 @@
 
 <script>
     var map;
+    var lati;
+    var longi;
 
 function getLocation() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -53,17 +55,64 @@ function getLocation() {
  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
-                        var lat = position.coords.latitude;
-                        var lng= position.coords.longitude;
-                        addMarker(lat,lng,"You are here","Here");
+                         lati = position.coords.latitude;
+                         longi= position.coords.longitude;
+                         var location = {lat: lati, lng: longi}
+                        addMarker(location,"You are here","Here");
+                        getNear(lati,longi);
                         
                 }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
             }else{
                 alert('geolocation is unsupported?');
             }
             alert('alert 2: ' + lat + ', ' + lng);
-        }
+        
+       
 
+        }
+	
+	function getNear(Latitude, Longitude) {
+
+				var latitu = Latitude;
+        var longitu = Longitude;
+                
+                var lat=[];
+                var lng=[];
+                var nama=[];
+                var namaatm=[];
+                var alamat=[];
+                $.ajax({
+                    method: "GET",
+                    url: "{{url('/near')}}",
+
+                    dataType: 'json',
+                    data: { 'lat': latitu, 'long':longitu  },
+                    success: function(response) {
+                 		//alert(response);
+                 		for(i in response) {
+
+          					   lat[i]=parseFloat(response[i].lat);
+          			       lng[i]=parseFloat(response[i].lng);
+                       nama[i]=response[i].nama;
+                       namaatm[i]=response[i].nama_atm;
+                       alamat[i]=response[i].alamat;
+          			       //addMarker(response[i].lat, response[i].lng, 0, 0);
+                     }
+             			}
+
+
+                })
+              //alert(lat);
+              alert("We've Found Your Location");
+              for (i = 0; i < 10; i++) { 
+                var msg = nama[i]+"-"+namaatm[i];
+                var add = alamat[i];
+                var location = {lat: lat[i], lng: lng[i]}
+                addMarker(location, msg, add);
+              }
+	}
+
+           
 </script>
   <!-- mumus -->
 	<script>
@@ -90,10 +139,17 @@ function getLocation() {
   			@endforeach
 		}
 
+
+		/*function addMarker(lt, lg, msg, add){
+	    var infoBank = new google.maps.InfoWindow();
+      	var image = "{{asset('pin/location_2.png')}}";
+			var myLatLng = {lat: lt, lng: lg};*/
+
 		// Adds a marker to the map and push to the array.
 		function addMarker(location, msg, add) {
 		  	var infoBank = new google.maps.InfoWindow();
       		var image = "{{asset('pin/location_2.png')}}";
+
 			var marker = new google.maps.Marker({
 				position: location,
 				map: map,
