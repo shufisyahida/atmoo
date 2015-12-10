@@ -129,7 +129,7 @@ class AtmController extends Controller
         $atm = Atm::find($id);
         $atm->status = '1';
         $atm->save();
-        return redirect()->back()->with('msg', 'Atm berhasil diverifikasi');
+        return redirect()->back()->with('msg', 'Atm has been verified successfully!');
     }
 
     /**
@@ -154,7 +154,7 @@ class AtmController extends Controller
     {
         $atm = Atm::find($id);
         $atm->delete();
-        return redirect()->back()->with('msg', 'Atm berhasil dihapus');
+        return redirect()->back()->with('msg', 'Atm has been deleted successfully');
 
     }
 }
