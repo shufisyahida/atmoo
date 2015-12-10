@@ -20,6 +20,7 @@ html, body {
 	float: left;
 	padding-top: 20px;
 	color: white;
+	position: fixed;
 }
 
 .footer ul li a {
