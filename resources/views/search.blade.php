@@ -29,7 +29,7 @@
 @section('content')
 
      <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><img src="{{url('../resources/assets/img/clocation.png')}}" style="width:30px; height:30px"></button>
-    
+ 
  <div id="directions-panel" style="float:right; width:48%; height:600px; overflow:auto;"></div>
 	<div class="map" id="map"></div>
 	<script type="text/javascript">
@@ -42,15 +42,11 @@
 	</script>
 
 <script>
-<<<<<<< HEAD
-var map;
-var dest = "Jakarta Convention Center, Indonesia";
-=======
+	var dest = "Jakarta Convention Center, Indonesia";
     var map;
     var lati;
     var longi;
 
->>>>>>> f6945a549bb459def310748836dbf9332c970519
 function getLocation() {
 	var directionsService = new google.maps.DirectionsService;
 	var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -62,41 +58,29 @@ function getLocation() {
  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
-<<<<<<< HEAD
                         var lat = position.coords.latitude;
                         var lng= position.coords.longitude;
                         //addMarker(lat,lng,"You are here","Here");
                         directionsDisplay.setMap(map);
                         calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng);
                         
-=======
-                         lati = position.coords.latitude;
-                         longi= position.coords.longitude;
                          var location = {lat: lati, lng: longi}
                         addMarker(location,"You are here","Here");
                         getNear(lati,longi);
                         alert("coba");
->>>>>>> f6945a549bb459def310748836dbf9332c970519
                 }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
             }else{
                 alert('geolocation is unsupported?');
             }
-<<<<<<< HEAD
-            //alert('alert 2: ' + lat + ', ' + lng);
- 
-=======
             alert('alert 2: ' + lat + ', ' + lng);
-        
-       
-
->>>>>>> f6945a549bb459def310748836dbf9332c970519
         }
 	
 	function getNear(Latitude, Longitude) {
 
-				var latitu = Latitude;
+		var latitu = Latitude;
         var longitu = Longitude;
-                
+        $("#directions-panel").show();
+
                 var lat=[];
                 var lng=[];
                 var nama=[];
@@ -121,8 +105,20 @@ function getLocation() {
                      }
              			}
 
-<<<<<<< HEAD
-   		function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
+
+
+                })
+              //alert(lat);
+              alert("We've Found Your Location");
+              for (i = 0; i < 10; i++) { 
+                var message = nama[i]+"-"+namaatm[i];
+                var address = alamat[i];
+                var location = {lat: lat[i], lng: lng[i]}
+                addMarker(location, message, address);
+              }
+	}
+
+	   		function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
 		  var markerorigin = new google.maps.Marker({
 	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
@@ -147,31 +143,20 @@ function getLocation() {
 		  		// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
 			  	directionsDisplay.setMap(map);
 		  		directionsDisplay.setPanel(document.getElementById('directions-panel'))
-		  			  		// menampilkan layer traffic atau lalu-lintas pada peta
+		  		// menampilkan layer traffic atau lalu-lintas pada peta
 		  		var trafficLayer = new google.maps.TrafficLayer();
   				trafficLayer.setMap(map);
 		}
 
-=======
-
-                })
-              //alert(lat);
-              alert("We've Found Your Location");
-              for (i = 0; i < 10; i++) { 
-                var message = nama[i]+"-"+namaatm[i];
-                var address = alamat[i];
-                var location = {lat: lat[i], lng: lng[i]}
-                addMarker(location, message, address);
-              }
-	}
-
-           
->>>>>>> f6945a549bb459def310748836dbf9332c970519
 </script>
   <!-- mumus -->
 	<script>
 		var map;
 		var markers = [];
+
+		$(document).ready(function(){
+   			$("#directions-panel").hide();
+		});
 
 		function initMap() {
 		  	var depok = {lat: -6.367713, lng: 106.821228};

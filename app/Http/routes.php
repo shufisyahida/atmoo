@@ -38,9 +38,7 @@ Route::get('/formadd', function () {
     return view('formadd');
 });
 
-<<<<<<< HEAD
-Route::get('/coba', 'SearchController@coba');
-=======
+
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -55,7 +53,5 @@ Route::controllers([
 Route::get('/info', function () {
     return view('info');
 });
-
->>>>>>> f6945a549bb459def310748836dbf9332c970519
 
 

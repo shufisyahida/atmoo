@@ -3,7 +3,7 @@
 @section('title', 'Home')
 
 @section('content')
-	<div style = "display:none"class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 10%">
+	<div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" style="margin-top: 10%">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 			  	<div class="modal-body">
@@ -24,75 +24,48 @@
 			</div>
 		</div>
 	</div>
-	
 	<div class="map-home" id="map"></div>
 	<script type="text/javascript">
-		// $(window).load(function(){
-		// 	$('#myModal').modal({
-		// 		show: true,
-		// 		backdrop: 'static'
-		// 	});
-		// });
+		$(window).load(function(){
+			$('#myModal').modal({
+				show: true,
+				backdrop: 'static'
+			});
+		});
 	</script>
 	<script>
-	var dest = "Jakarta Convention Center, Indonesia";
-    //var directionsDisplay;
-        // memanggil service Google Maps Direction
-	//var directionsService = new google.maps.DirectionsService();
-	//directionsDisplay = new google.maps.DirectionsRenderer();
 		function initMap() {
-		  var directionsService = new google.maps.DirectionsService;
-		  var directionsDisplay = new google.maps.DirectionsRenderer;
+			var map = new google.maps.Map(document.getElementById('map'), {
+    			center: {lat: -34.397, lng: 150.644},
+    			zoom: 6
+  			});
 
-		  var map = new google.maps.Map(document.getElementById('map'), {
-    			zoom: 15,
-    			center: {lat: -6.211544, lng:106.845172}
+  			var infoWindow = new google.maps.InfoWindow({map : map});
 
-  		   });
+  			if(navigator.geolocation) {
+  				navigator.geolocation.getCurrentPosition(function(position){
+  					var pos = {
+  						lat: position.coords.latitude,
+  						lng: position.corrds.longitude
+  					};
 
-
-  // Try HTML5 geolocation.
-  		if (navigator.geolocation) {
-    		navigator.geolocation.getCurrentPosition(function(position) {
-      		var pos = {
-        		lat: position.coords.latitude,
-        		lng: position.coords.longitude
-      		};
-
-      		infoWindow.setPosition(pos);
-      		infoWindow.setContent('Location found.');
-      		map.setCenter(pos);
-    		}, function() {
-      			handleLocationError(true, infoWindow, map.getCenter());
-    		});
-  		} else {
-    		// Browser doesn't support Geolocation
-    		handleLocationError(false, infoWindow, map.getCenter());
-  		}
-
-
-
-		  directionsDisplay.setMap(map);
-
-		  calculateAndDisplayRoute(directionsService, directionsDisplay);	
+  					infoWindow.setPosition(pos);
+  					infoWindow.setContent('Disini');
+  					map.setCenter(pos);
+  				}, function() {
+  					handleLocationError(true, infoWindow, map.getCenter());
+  				});
+  			} else {
+  				handleLocationError(false, infoWndow, map.getCenter());
+  			}
 		}
 
-		function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-
-		  directionsService.route({
-		    origin: {lat: -6.249625, lng:106.990287},
-		    //origin: markerorigin.getPosition(),
-		    destination: dest,
-		    travelMode: google.maps.TravelMode.DRIVING
-		  }, function(response, status) {
-		    if (status === google.maps.DirectionsStatus.OK) {
-		      directionsDisplay.setDirections(response);
-		    } else {
-		      window.alert('Directions request failed due to ' + status);
-		    }
-		  });
+		function handleLocationError(browserHasGeolocation, infowWindow, pos) {
+			infoWindow.setPosition(pos);
+			infoWindow.setContent(browserHasGeolocation ?
+                        'Error: The Geolocation service failed.' :
+                        'Error: Your browser doesn\'t support geolocation.');
 		}
-
 	</script>
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"
