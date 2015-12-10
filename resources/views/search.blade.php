@@ -31,6 +31,7 @@
 <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><img src="{{url('../resources/assets/img/clocation.png')}}" style="width:30px; height:30px"></button>
  <div id="directions-panel" style="float:right; width:48%; height:600px; overflow:auto;"></div>
  <div id="directions-panel2" style="float:right; width:48%; height:600px; overflow:auto;"></div>
+ <button onclick="getLocationSearch()" id="getrute">Tunjukan Rute</button>
 <div class="map" id="map"></div>
 <script>
 var map;
@@ -45,6 +46,7 @@ var longi;
 // });
 $("#directions-panel").hide();
 $("#directions-panel2").hide();
+$("#getrute").hide();
 function initMap() {
   	var depok = {lat: -6.367713, lng: 106.821228};
 
@@ -141,7 +143,7 @@ $.ajax({
 });
 
 function search() {
-	
+	$("#getrute").show();
 	$.ajax({
 		dataType: 'json',
 		type: 'GET',
@@ -164,12 +166,12 @@ function search() {
   				var message = data.nama + " -" + data.nama_atm;
           		var address = data.alamat;
           		//map.setCenter(location);
-          		var dest2 = data.alamat;
+          		dest = data.alamat;
 
   				addMarker(location, message, address);
 
   				AutoCenter();
-  				getLocationSearch(dest2);
+  				//getLocationSearch(dest2);
 			}
 
 			if(response[0].hasOwnProperty('location')) {
@@ -214,7 +216,7 @@ function AutoCenter() {
 	console.log('cobalagooo');
 }
 
-function getLocationSearch(destination) {
+function getLocationSearch() {
 	
 	$("#directions-panel").hide();
 	$("#directions-panel2").show();
@@ -233,7 +235,7 @@ function getLocationSearch(destination) {
                         //getNear(lat,lng);
                         //addMarker(lat,lng,"You are here","Here");
                         directionsDisplay.setMap(map);
-                        calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng, destination);
+                        calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng);
 
                         
                 }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
@@ -246,6 +248,7 @@ function getLocationSearch(destination) {
 
 
 function getLocation() {
+	$("#getrute").hide();
 	$("#directions-panel").show();
 	var directionsService = new google.maps.DirectionsService;
 	var directionsDisplay = new google.maps.DirectionsRenderer;
@@ -311,7 +314,7 @@ function getNear(Latitude, Longitude) {
 	}
 }
 
-function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng, destination) {
+function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
 		  var markerorigin = new google.maps.Marker({
 	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
@@ -322,7 +325,7 @@ function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, ln
 		  directionsService.route({
 		    origin: markerorigin.getPosition(),
 		    //origin: markerorigin.getPosition(),
-		    destination: destination,
+		    destination: dest,
 		    travelMode: google.maps.TravelMode.DRIVING,
 		    provideRouteAlternatives:true
 		  }, function(response, status) {
