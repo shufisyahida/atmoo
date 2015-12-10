@@ -60,7 +60,7 @@ function getLocation() {
                          var location = {lat: lati, lng: longi}
                         addMarker(location,"You are here","Here");
                         getNear(lati,longi);
-                        
+                        alert("coba");
                 }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
             }else{
                 alert('geolocation is unsupported?');
@@ -105,10 +105,10 @@ function getLocation() {
               //alert(lat);
               alert("We've Found Your Location");
               for (i = 0; i < 10; i++) { 
-                var msg = nama[i]+"-"+namaatm[i];
-                var add = alamat[i];
+                var message = nama[i]+"-"+namaatm[i];
+                var address = alamat[i];
                 var location = {lat: lat[i], lng: lng[i]}
-                addMarker(location, msg, add);
+                addMarker(location, message, address);
               }
 	}
 
@@ -360,5 +360,6 @@ function getLocation() {
 	<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBtnGid5CBfg2btXly-d5OXaNrp6DeeuCs 	
 &signed_in=true&callback=initMap"
         async defe></script>
+
 
 @endsection
