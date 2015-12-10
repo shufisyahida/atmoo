@@ -12,8 +12,8 @@ class InfoSeeder extends Seeder
     public function run()
     {
         DB::table('info')->insert(['id_ATM' => '1','jenis' => 'atm tunai','nominal' => '50.000']);
-        DB::table('info')->insert(['id_ATM' => '2','jenis' => 'atm tunai,setoran tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '3','jenis' => 'atm tunai','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '2','jenis' => 'atm tunai','nominal' => '50.000']);
+        DB::table('info')->insert(['id_ATM' => '3','jenis' => 'atm tunai,setoran tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '4','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '5','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '6','jenis' => 'atm tunai','nominal' => '']);
