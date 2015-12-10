@@ -81,7 +81,11 @@ function addMarker(location, message, address) {
 		title: message
 	});
   	google.maps.event.addListener(marker, 'click', function() {
-    	infoBank.setContent('<div><strong>' + message + '</strong><br>' + 'Alamat: ' + address + '<br>' +'</div>');
+    	infoBank.setContent('\
+    		<div>\
+    			<strong>' + message + '</strong><br>\
+    			Alamat: ' + address + '<br>\
+    		</div>');
     	infoBank.open(map, this);
   	});
 
