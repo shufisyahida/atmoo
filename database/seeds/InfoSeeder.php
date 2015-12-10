@@ -65,7 +65,7 @@ class InfoSeeder extends Seeder
         DB::table('info')->insert(['id_ATM' => '52','jenis' => 'atm tunai,atm non tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '53','jenis' => 'atm tunai,atm non tunai','nominal' => '50.000,100.000']);
         DB::table('info')->insert(['id_ATM' => '54','jenis' => 'atm tunai','nominal' => '50.000,100.000']);
-        DB::table('info')->insert(['id_ATM' => '55','jenis' => 'atm tunai','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '55','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '56','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '57','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '58','jenis' => 'atm tunai','nominal' => '']);
