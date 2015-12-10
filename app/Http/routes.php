@@ -38,6 +38,7 @@ Route::get('/formadd', function () {
     return view('formadd');
 });
 
+
 // Authentication routes...
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
@@ -52,6 +53,5 @@ Route::controllers([
 Route::get('/info', function () {
     return view('info');
 });
-
 
 

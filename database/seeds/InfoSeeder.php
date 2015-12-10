@@ -12,23 +12,23 @@ class InfoSeeder extends Seeder
     public function run()
     {
         DB::table('info')->insert(['id_ATM' => '1','jenis' => 'atm tunai','nominal' => '50.000']);
-        DB::table('info')->insert(['id_ATM' => '2','jenis' => 'atm tunai,setoran tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '3','jenis' => 'atm tunai','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '2','jenis' => 'atm tunai','nominal' => '50.000']);
+        DB::table('info')->insert(['id_ATM' => '3','jenis' => 'atm tunai,setor tunai,atm non tunai','nominal' => '50.000,100.000']);
         DB::table('info')->insert(['id_ATM' => '4','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '5','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '6','jenis' => 'atm tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '7','jenis' => 'atm tunai','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '7','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '8','jenis' => 'atm tunai,atm non tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '9','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '10','jenis' => 'atm tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '11','jenis' => '','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '11','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '12','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '13','jenis' => 'atm non tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '14','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '15','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '16','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '17','jenis' => 'atm tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '18','jenis' => '','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '18','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '19','jenis' => '','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '20','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '21','jenis' => 'atm tunai','nominal' => '50.000']);
@@ -39,9 +39,9 @@ class InfoSeeder extends Seeder
         DB::table('info')->insert(['id_ATM' => '26','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '27','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '28','jenis' => 'atm tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '29','jenis' => 'atm tunai','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '29','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '30','jenis' => '','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '31','jenis' => '','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '31','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '32','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '33','jenis' => '','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '34','jenis' => '','nominal' => '']);
@@ -74,7 +74,7 @@ class InfoSeeder extends Seeder
         DB::table('info')->insert(['id_ATM' => '61','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '62','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '63','jenis' => 'atm tunai','nominal' => '']);
-        DB::table('info')->insert(['id_ATM' => '64','jenis' => 'atm tunai','nominal' => '']);
+        DB::table('info')->insert(['id_ATM' => '64','jenis' => 'atm tunai','nominal' => '50.000']);
         DB::table('info')->insert(['id_ATM' => '65','jenis' => 'atm tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '66','jenis' => 'atm non tunai','nominal' => '']);
         DB::table('info')->insert(['id_ATM' => '67','jenis' => 'atm tunai','nominal' => '']);
