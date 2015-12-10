@@ -21,14 +21,41 @@ Route::get('/searchResult', 'SearchController@searchResult');
 
 //BankController
 Route::get('/getBankList', 'BankController@index');
+Route::get('/addBankList', 'BankController@add');
 
 //AtmController
 Route::get('/getAtmList', 'AtmController@index');
+
+ Route::get('near', 'SearchController@near');
+
+Route::get('/addAtm', 'AtmController@store');
+Route::get('/home', 'AtmController@admin');
+Route::get('/delete/{atm}', 'AtmController@destroy');
+Route::get('/edit/{atm}', 'AtmController@edit');
+
 
 Route::get('/formadd', function () {
     return view('formadd');
 });
 
+<<<<<<< HEAD
 Route::get('/coba', 'SearchController@coba');
+=======
+// Authentication routes...
+Route::get('auth/login', 'Auth\AuthController@getLogin');
+Route::post('auth/login', 'Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Auth\AuthController@getLogout');
+//Route::get('auth/register', 'Auth\AuthController@getRegister');
+//Route::post('auth/register', 'Auth\AuthController@postRegister');
+Route::controllers([
+  'auth' => 'Auth\AuthController',
+  'password' => 'Auth\PasswordController',
+]);
+
+Route::get('/info', function () {
+    return view('info');
+});
+
+>>>>>>> f6945a549bb459def310748836dbf9332c970519
 
 

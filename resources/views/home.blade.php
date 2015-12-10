@@ -13,7 +13,10 @@
 			    		<div class="col-md-2"></div>
 				    	<div class="col-md-8">
 				    		<a href="{{ url('/search') }}"><button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> Search your ATM</button></a><br>
-					    	<a href="{{ url ('/formadd') }}"><button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add hidden ATM</button></a>	
+					    	<a href="{{ url ('/formadd') }}"><button type="button" class="btn btn-pink btn-lg btn-block"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add hidden ATM</button></a><br>
+					    	<div class="col-md-offset-3">
+					    		Are you admin? <a href="{{ url('/auth/login') }}">Login here!</a>	
+					    	</div>
 				    	</div>
 				    	<div class="col-md-2"></div>
 			    	</div>

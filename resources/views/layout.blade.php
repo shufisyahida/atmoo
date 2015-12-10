@@ -9,7 +9,8 @@
 		<!-- Latest compiled and minified CSS -->
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous">
 		<link rel="stylesheet" href="{{URL::to('../resources/assets/css/jquery-ui.min.css')}}">
-	
+		
+		<link rel="icon" href="{{ asset('pin/clocation.png') }}" type="image/gif" sizes="16x16">
 	</head>
 	<body>
 

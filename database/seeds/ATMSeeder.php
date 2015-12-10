@@ -36,7 +36,7 @@ class ATMSeeder extends Seeder
     	DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'Perpustakaan Pusat UI','alamat' => 'Perpustakaan Pusat Universitas Indonesia,Jalan Lingkar Ui,Kota Depok, Jawa Barat 16424','lat' => '-6.365582','lng' => '106.829750','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'Kampus FHUI','alamat' => 'Kampus Baru UI Fakultas Hukum UI, JL Lingkar Kampus Raya,16424','lat' => '-6.363805','lng' => '106.827868','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'Kampus FKM UI','alamat' => 'Fakultas Kesehatan Masyarakat Universitas Indonesia (UI), JL Lingkar Kampus Raya, Komplek Kampus UI,16424','lat' => '-6.370169','lng' => '106.829711','status' => '1']);
-    	DB::table('atm')->insert(['id_bank' => '20','nama_atm' => 'Departemen Fisika MIPA UI','alamat' => 'Fakultas MIPA Universitas Indonesia (UI), JL Lingkar Kampus Raya, Kampus Baru UI,16424','lat' => '-6.369497','lng' => '106,826997','status' => '1']);
+    	DB::table('atm')->insert(['id_bank' => '20','nama_atm' => 'Departemen Fisika MIPA UI','alamat' => 'Fakultas MIPA Universitas Indonesia (UI), JL Lingkar Kampus Raya, Kampus Baru UI,16424','lat' => '-6.369497','lng' => '106.826997','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '18','nama_atm' => 'Kampus FMIPA UI','alamat' => 'Fakultas MIPA Universitas Indonesia (UI), JL Lingkar Kampus Raya, Kampus Baru UI,16424','lat' => '-6.369861','lng' => '106.826855','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '82','nama_atm' => 'Alfamart Margonda','alamat' => 'Jl. Margonda Raya No.515 ,Beji,Kota Depok, Jawa Barat 16424','lat' => '-6.361594','lng' => '106.833243','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'Alfamart Margonda','alamat' => 'Jl. Margonda Raya No.515 ,Beji,Kota Depok, Jawa Barat 16424','lat' => '-6.361594','lng' => '106.833243','status' => '1']);
@@ -48,7 +48,7 @@ class ATMSeeder extends Seeder
     	DB::table('atm')->insert(['id_bank' => '25','nama_atm' => 'Margonda 5','alamat' => 'Jalan Margonda Raya No. 485,Beji,Depok,Jawa Barat 16423','lat' => '-6.364148','lng' => '106.833498','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '58','nama_atm' => 'Margonda 6','alamat' => 'Jl. Margonda Raya,Beji,Kota Depok, Jawa Barat 16431','lat' => '-6.364399','lng' => '106.833467','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '14','nama_atm' => 'Margonda 7','alamat' => 'JL Margonda Raya, No. 389 B, Pondok Cina,16424','lat' => '-6.364505','lng' => '106.834162','status' => '1']);
-    	DB::table('atm')->insert(['id_bank' => '23','nama_atm' => 'Shell Margonda','alamat' => 'Jalan Margonda Raya No.469 Beji, Kota Depok, Jawa Barat 16424','lat' => '-6.365061','lng' => '106833653','status' => '1']);
+    	DB::table('atm')->insert(['id_bank' => '23','nama_atm' => 'Shell Margonda','alamat' => 'Jalan Margonda Raya No.469 Beji, Kota Depok, Jawa Barat 16424','lat' => '-6.365061','lng' => '106.833653','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '4','nama_atm' => 'SPBU Coco Margonda','alamat' => 'Jl. Margonda Raya No. 346 Rt. 01/02,Spbu Coco 31-16401,Indonesia 16423','lat' => '-6.364803','lng' => '106.834011','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'RSU Bunda Margonda','alamat' => 'RSU Bunda Margonda No. 28,Jl. Margonda Raya,Beji,Kota Depok, Jawa Barat 16424','lat' => '-6.365318','lng' => '106.834272','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '1','nama_atm' => 'RSU Bunda Margonda','alamat' => 'RSU Bunda Margonda No. 28,Jl. Margonda Raya,Beji,Kota Depok, Jawa Barat 16425','lat' => '-6.365383','lng' => '106.834631','status' => '1']);
@@ -68,10 +68,29 @@ class ATMSeeder extends Seeder
     	DB::table('atm')->insert(['id_bank' => '2','nama_atm' => 'ATM Center Depok Town Square','alamat' => 'Depok Town Square, Blok GE, JL. Margonda,Kemirimuka,Beji,Kota Depok 16426','lat' => '-6.372485','lng' => '106.832524','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '4','nama_atm' => 'ATM Center Depok Town Square','alamat' => 'Depok Town Square, Blok GE, JL. Margonda,Kemirimuka,Beji,Kota Depok 16427','lat' => '-6.372485','lng' => '106.832524','status' => '1']);
     	DB::table('atm')->insert(['id_bank' => '5','nama_atm' => 'ATM Center Depok Town Square','alamat' => 'Depok Town Square, Blok GE, JL. Margonda,Kemirimuka,Beji,Kota Depok 16428','lat' => '-6.372485','lng' => '106.832524','status' => '1']);
-
-
-
-
+        DB::table('atm')->insert(['id_bank' => '1','nama_atm' => 'ATM Mall Depok','alamat' => 'Jl. Margonda Raya No.88, Beji, Kota Depok, Jawa Barat 16423','lat' => '-6.308702','lng' => '106.827574','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '1','nama_atm' => 'Mandiri ATM Pesona Club Khyangan Depok','alamat' => 'Jl Margonda Raya 45 Depok Pancoran Mas Depok Jawa Barat,Mekar Jaya,Sukmajaya,Kota Depok 16431','lat' => '-6.383712','lng' => '106.832878','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '1','nama_atm' => 'Toserba Ramayana','alamat' => 'Jl. Margonda Raya,Pancoran MAS,Kota Depok, Jawa Barat 16431','lat' => '-6.391576','lng' => '106.825170','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Klinik Raditya Medikal Center','alamat' => 'Kav. 45,Ruko Pesona Khayangan,Jl. Margonda Raya No.9,Kota Depok, Jawa Barat 16423','lat' => '-6.242447','lng' => '106.803235','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Klinik Nirmala Depok','alamat' => 'No. 492 A,Jl. Margonda Raya,Beji,Kota Depok, Jawa Barat 16424','lat' => '-6.361225','lng' => '106.833698','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Margonda Residence','alamat' => 'No. 224 C,Jl. Margonda Raya,Beji,Kota Depok, Jawa Barat 16424','lat' => '-6.364136','lng' => '106.833975','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Indomaret Margonda','alamat' => 'Jl.Margonda 504 DE Rt01/05,Pondok Cina,Beji,Depok 16425','lat' => '-6.360556','lng' => '106.833555','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'ATM Mall Depok','alamat' => 'Jl. Margonda Raya No.88, Beji, Kota Depok, Jawa Barat 16423','lat' => '-6.308702','lng' => '106.827574','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Kiosk EBC ITC Depok','alamat' => 'Jl. MARGONDA RAYA No. 56, Depok, Jawa Barat, Indonesia','lat' => '-6.392591','lng' => '106.822996','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Alfamart Pesona Khayangan Depok','alamat' => 'l. IR.Haji Juanda,Beji,Kota Depok, Jawa Barat 16423','lat' => '-6.378122','lng' => '106.835390','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'Alfamart Pesona Khayangan Depok','alamat' => 'l. IR.Haji Juanda,Beji,Kota Depok, Jawa Barat 16423','lat' => '-6.378122','lng' => '106.835390','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '7','nama_atm' => 'ITC Depok','alamat' => 'Jl. MARGONDA RAYA No. 56, Depok, Jawa Barat, Indonesia','lat' => '-6.392591','lng' => '106.822996','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '7','nama_atm' => 'ATM Center Depok Town Square','alamat' => 'Depok Town Square, Blok GE, JL. Margonda,Kemirimuka,Beji,Kota Depok 16428','lat' => '-6.372485','lng' => '106.832524','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '7','nama_atm' => 'ATM Center Margo City','alamat' => 'Jl. Margonda Raya No.358,Beji,Kota Depok, Jawa Barat 16435','lat' => '-6.360824','lng' => '106.833390','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '7','nama_atm' => 'ATM Mall Depok','alamat' => 'Jl. Margonda Raya No.88, Beji, Kota Depok, Jawa Barat 16423','lat' => '-6.308702','lng' => '106.827574','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'Wisma Makara','alamat' => 'Jl. Prof. Miriam Budiarjo,Daerah Khusus Ibukota Jakarta 16424','lat' => '-6.347601','lng' => '106.828968','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'KCU UI Depok','alamat' => 'Gedung Baru - Balai Sidang Lt. dasar - Kampus Baru UI Depok dh Gd. Balai Sidang Kampus UI','lat' => '-6.369.622','lng' => '106.828461','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '8','nama_atm' => 'ATM Center Margo City','alamat' => 'Jl. Margonda Raya No.358,Beji,Kota Depok, Jawa Barat 16435','lat' => '-6.360824','lng' => '106.833390','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '8','nama_atm' => 'ITC Depok','alamat' => 'Jl. MARGONDA RAYA No. 56, Depok, Jawa Barat, Indonesia','lat' => '-6.392591','lng' => '106.822996','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '8','nama_atm' => 'KCP Depok 2, SMM','alamat' => 'Jl. Margonda Raya No. 38 Depok','lat' => '-6.355547','lng' => '106.834467','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '3','nama_atm' => 'BNI Margonda','alamat' => 'Jl. Margonda Raya,Beji,Kota Depok, Jawa Barat 16424,Indonesia','lat' => '-6.367412','lng' => '106.833944','status' => '1']);
+        DB::table('atm')->insert(['id_bank' => '81','nama_atm' => 'Alfamart E902 Margonda Raya','alamat' => 'JL. Margonda Raya, Blok C4,Indonesia','lat' => '-6.368141','lng' => '106.834310','status' => '1']);
+        
 
 
 

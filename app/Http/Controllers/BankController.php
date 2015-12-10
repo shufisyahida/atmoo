@@ -26,6 +26,15 @@ class BankController extends Controller
         return $results;
     }
 
+    public function add(){
+        $banks = Bank::all();
+        $results = array();
+        foreach ($banks as $bank){
+            array_push($results, $bank->id. " - " .$bank->nama);
+        }
+        return $results;
+    }
+
     /**
      * Show the form for creating a new resource.
      *

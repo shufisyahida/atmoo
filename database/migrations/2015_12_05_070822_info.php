@@ -16,8 +16,8 @@ class Info extends Migration
             $table->increments('id');
             $table->integer('id_atm')->unsigned();
             $table->string('jenis');
-            $table->integer('nominal');
-            $table->foreign('id_atm')->references('id')->on('atm');
+            $table->string('nominal');
+            $table->foreign('id_atm')->references('id')->on('atm')->onDelete('cascade');
             $table->timestamps();
         });
     }

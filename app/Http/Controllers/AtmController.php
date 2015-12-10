@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Atm;
+use App\Info;
+use DB;
+use Validator;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -25,6 +28,12 @@ class AtmController extends Controller
         return $results;
     }
 
+    public function admin(){
+        return view('admin', ['atm' => DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->get(),
+                'atmv' => DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('atm.status', '=', '0')->get()
+            ]);
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -43,7 +52,59 @@ class AtmController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = $request->all();
+        
+        $rules = [
+            'nama' => 'required',
+            'bank' => 'required',
+            'loc' => 'required',
+            'lng' => 'required',
+            'lat' => 'required',
+            'nom' => 'integer',
+        ];
+
+        $messages = [
+            'required' => 'This field must be filled',
+            'integer' => 'This field should be number',
+            'lat.required' => 'Please click map to get coordinates',
+        ];
+
+        $validator = Validator::make($input, $rules, $messages);
+
+        if ($validator->fails()) {
+            return back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+
+        $bank = $request->input('bank');
+        $sep = explode(" - ", $bank);
+        $id = $sep[0];
+
+        $atm = new Atm();
+        $atm->id_bank = $id;
+        $atm->nama_atm = $request->input('nama');
+        $atm->alamat = $request->input('loc');
+        $atm->lng = $request->input('lng');
+        $atm->lat = $request->input('lat');
+        $atm->status = '0';
+        $atm->save();
+
+        $lastAtm = Atm::orderBy('ida', 'desc')->first();
+        $idLastAtm = $lastAtm->ida;
+
+        $info = new Info();
+        $info->id_atm = $idLastAtm;
+        $jenis = $request->input('jenis');
+        if($jenis == "1"){
+            $info->jenis = "Setor Tunai";
+        }else{
+            $info->jenis = "Tarik Tunai";
+            $info->nominal = $request->input('nom');
+        }
+        $info->save();
+        return redirect()->back()->with('msg', 'Berhasil!');
+
     }
 
     /**
@@ -65,7 +126,10 @@ class AtmController extends Controller
      */
     public function edit($id)
     {
-        //
+        $atm = Atm::find($id);
+        $atm->status = '1';
+        $atm->save();
+        return redirect()->back()->with('msg', 'Atm berhasil diverifikasi');
     }
 
     /**
@@ -88,6 +152,9 @@ class AtmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $atm = Atm::find($id);
+        $atm->delete();
+        return redirect()->back()->with('msg', 'Atm berhasil dihapus');
+
     }
 }
