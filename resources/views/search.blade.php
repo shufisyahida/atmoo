@@ -209,99 +209,103 @@ function AutoCenter() {
 	console.log('cobalagooo');
 }
 
+var dest = "Jakarta Convention Center, Indonesia";
+ var lati;
+  var longi;
+function getLocation() {
 
+	var directionsService = new google.maps.DirectionsService;
+	var directionsDisplay = new google.maps.DirectionsRenderer;
+	map = new google.maps.Map(document.getElementById('map'), {
+      center: {lat: -6.307713, lng: 106.831228},
+      zoom: 13
+  	});
 
-// function getLocation() {
-// 	var directionsService = new google.maps.DirectionsService;
-// 	var directionsDisplay = new google.maps.DirectionsRenderer;
-// 	map = new google.maps.Map(document.getElementById('map'), {
-//       center: {lat: -6.307713, lng: 106.831228},
-//       zoom: 13
-//   	});
+    var infoWindow = new google.maps.InfoWindow({map : map});
 
-//     var infoWindow = new google.maps.InfoWindow({map : map});
-
-// 	if (navigator.geolocation) {
-//     	navigator.geolocation.getCurrentPosition(function(position){
+	if (navigator.geolocation) {
+    	navigator.geolocation.getCurrentPosition(function(position){
             
-//             var lat = position.coords.latitude;
-//             var lng= position.coords.longitude;
+            var lat = parseFloat(position.coords.latitude);
+            var lng = parseFloat(position.coords.longitude);
             
-//             directionsDisplay.setMap(map);
-//             calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng);
-                    
-//             var location = {lat: lati, lng: longi}
-//             addMarker(location,"You are here","Here");
-//             getNear(lati,longi);
-//             alert("coba");
-//         }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
-//     } else {
-//             alert('geolocation is unsupported?');
-//     }
-//     alert('alert 2: ' + lat + ', ' + lng);
-// }
+            directionsDisplay.setMap(map);
+            calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng);
+                 
+            lati = position.coords.latitude;
+            longi= position.coords.longitude;   
+            var location = {lat: lati, lng: longi}
+            addMarker(location,"You are here","Here");
+            getNear(lati,longi);
+            alert("coba");
+        }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
+    } else {
+            alert('geolocation is unsupported?');
+    }
+    alert('alert 2: ' + lat + ', ' + lng);
+}
 
-// function getNear(Latitude, Longitude) {
+function getNear(Latitude, Longitude) {
 
-// 	var latitu = Latitude;
-//     var longitu = Longitude;
-//     $("#directions-panel").show();
+	var latitu = Latitude;
+    var longitu = Longitude;
+   //$("#directions-panel").show();
 
-//     var lat=[];
-//     var lng=[];
-//     var nama=[];
-//     var namaatm=[];
-//     var alamat=[];
-//     $.ajax({
-//         method: "GET",
-//         url: "{{url('/near')}}",
+    var lat=[];
+    var lng=[];
+    var nama=[];
+    var namaatm=[];
+    var alamat=[];
+    $.ajax({
+        method: "GET",
+        url: "{{url('/near')}}",
 
-//         dataType: 'json',
-//         data: { 'lat': latitu, 'long':longitu  }
-//     }).done(function(response){
-//     	for(i in response) {
-// 				lat[i]=parseFloat(response[i].lat);
-// 			    lng[i]=parseFloat(response[i].lng);
-//            	nama[i]=response[i].nama;
-//            	namaatm[i]=response[i].nama_atm;
-//            	alamat[i]=response[i].alamat;
-//         }
-//     });
+        dataType: 'json',
+        data: { 'lat': latitu, 'long':longitu  }
+    }).done(function(response){
+    	for(i in response) {
+				lat[i]=parseFloat(response[i].lat);
+			    lng[i]=parseFloat(response[i].lng);
+           	nama[i]=response[i].nama;
+           	namaatm[i]=response[i].nama_atm;
+           	alamat[i]=response[i].alamat;
+        }
+    });
       
-// 	alert("We've Found Your Location");
-// 	for (i = 0; i < 10; i++) { 
-// 		var message = nama[i]+"-"+namaatm[i];
-// 		var address = alamat[i];
-// 		var location = {lat: lat[i], lng: lng[i]}
-// 		addMarker(location, message, address);
-// 	}
-// }
+	alert("We've Found Your Location");
+	for (i = 0; i < 10; i++) { 
+		var message = nama[i]+"-"+namaatm[i];
+		var address = alamat[i];
+		var location = {lat: lat[i], lng: lng[i]}
+		addMarker(location, message, address);
+	}
+}
 
-// function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
-// 	var markerorigin = new google.maps.Marker({
-// 		position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
-// 		map: map,
-// 		title: "Origin",
-// 		visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
-// 	});
-// 	directionsService.route({
-// 		origin: markerorigin.getPosition(),
-// 		destination: dest,
-// 		travelMode: google.maps.TravelMode.DRIVING,
-// 		provideRouteAlternatives:true
-// 	}, function(response, status) {
-// 		if (status === google.maps.DirectionsStatus.OK) {
-// 			directionsDisplay.setDirections(response);
-// 		} else {
-// 			window.alert('Directions request failed due to ' + status);
-// 		}
-// 	});	
-// 	directionsDisplay.setMap(map);
-// 	directionsDisplay.setPanel(document.getElementById('directions-panel'))
+function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
+	var markerorigin = new google.maps.Marker({
+		position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
+		map: map,
+		title: "Origin",
+		visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
+	});
+	directionsService.route({
+		origin: markerorigin.getPosition(),
+		destination: dest,
+		travelMode: google.maps.TravelMode.DRIVING,
+		provideRouteAlternatives:true
+	}, function(response, status) {
+		if (status === google.maps.DirectionsStatus.OK) {
+			directionsDisplay.setDirections(response);
+		} else {
+			window.alert('Directions request failed due to ' + status);
+		}
+	});	
+	directionsDisplay.setMap(map);
+	directionsDisplay.setPanel(document.getElementById('directions-panel'))
 	
-// 	var trafficLayer = new google.maps.TrafficLayer();
-// 	trafficLayer.setMap(map);
-// }		
+	var trafficLayer = new google.maps.TrafficLayer();
+	trafficLayer.setMap(map);
+}		
 
 $('#location').bind("enterKey",function(e){
 	search();
