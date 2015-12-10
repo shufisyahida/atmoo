@@ -72,7 +72,9 @@ html, body {
 .map{
 	height: 80%;
 }
-
+.map-coba{
+	height: 100%;
+}
 .btn-circle.btn-xl {
   margin-left: 10px;
   width: 70px;
