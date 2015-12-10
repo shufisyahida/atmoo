@@ -18,6 +18,8 @@ Route::get('/', function () {
 //SearchController
 Route::get('/search', 'SearchController@index');
 Route::get('/searchResult', 'SearchController@searchResult');
+Route::get('near', 'SearchController@near');
+Route::get('/getAll', 'SearchController@getAll');
 
 //BankController
 Route::get('/getBankList', 'BankController@index');
@@ -26,7 +28,6 @@ Route::get('/addBankList', 'BankController@add');
 //AtmController
 Route::get('/getAtmList', 'AtmController@index');
 
- Route::get('near', 'SearchController@near');
 
 Route::get('/addAtm', 'AtmController@store');
 Route::get('/home', 'AtmController@admin');

@@ -17,17 +17,16 @@ class SearchController extends Controller
      */
     public function index()
     {
-        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
-        $bank = DB::table('bank')->get();
-        foreach ($bank as $bank){
-            $banker[] = [ 'id' => $bank->id, 'value' => $bank->nama ];
-        }
-        //return view('search', ['atms' => $atm, 'banks' => $banker]);
-        return view('search', ['atms' => $atm]);
+        return view('search');
     }
 
-     public function near() 
-     {
+    public function getAll() {
+        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        return $atm;
+    }
+
+    public function near() 
+    {
         
         $Longi = $_GET['long'];
         $Lati = $_GET['lat'];        
