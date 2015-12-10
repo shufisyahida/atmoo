@@ -118,6 +118,7 @@ function getLocation() {
 	<script>
 		var map;
 		var markers = [];
+		var bounds;
 
 		function initMap() {
 		  	var depok = {lat: -6.367713, lng: 106.821228};
@@ -149,7 +150,10 @@ function getLocation() {
 		function addMarker(location, message, address) {
 		  	var infoBank = new google.maps.InfoWindow();
       		var image = "{{asset('pin/location_2.png')}}";
-
+      		bounds = new google.maps.LatLngBounds();
+      		var x = new google.maps.LatLng(location);
+      		bounds.extend(x);
+      		console.log("a");
 			var marker = new google.maps.Marker({
 				position: location,
 				map: map,
@@ -255,7 +259,7 @@ function getLocation() {
 
 					if(response[0].hasOwnProperty('bank')) {
 						var data = response;
-						var bounds = new google.maps.LatLngBounds();
+						
 						var center;
 						for(var i = 0; i < data.length; i++) {
 
@@ -263,9 +267,10 @@ function getLocation() {
 							//if(i === 0) {center = location;}
 			  				var message = data.nama + " -" + data.nama_atm;
 			          		var address = data.alamat;
+			  				
 			  				addMarker(location, message, address);
 			  				// if (i === 0 || i === 1 || i === 2) {
-			  				// 	bounds.extend(new google.maps.LatLng(Number(data.lat), Number(data.lng)));	
+			  					
 			  				// }
 						}
 						//var boundary = getBoundary();
@@ -273,11 +278,13 @@ function getLocation() {
 						// bounds.extend(boundary[1]);
 						// bounds.extend(boundary[2]);
 						// bounds.extend(boundary[3]);
-						// map.fitBounds(bounds);
+						console.log("b");
+						
 						//map.setCenter(center);
-						AutoCenter();
+						//AutoCenter();
 					}
 					
+					map.fitBounds(bounds);
 			});
 			
 		}
