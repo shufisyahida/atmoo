@@ -66,7 +66,7 @@ function initMap() {
 				var atm = response[i];
 				var location = {lat: parseFloat(atm.lat), lng: parseFloat(atm.lng)};
 				var message = atm.nama + " - " + atm.nama_atm;
-				var address = atm.alamat;
+				var address = atm.alamat+ "<br>Jenis : " + atm.jenis + "<br>Nominal : " + atm.nominal;
 				addMarker(location, message, address);	
 			}
 		})
@@ -84,7 +84,7 @@ function addMarker(location, message, address) {
 		title: message
 	});
   	google.maps.event.addListener(marker, 'click', function() {
-    	infoBank.setContent('<div><strong>' + message + '</strong><br>' + 'Alamat: ' + address + '<br>' +'</div>');
+    	infoBank.setContent('<div><strong>' + message + '</strong><br>' + address + '<br>' +'</div>');
     	infoBank.open(map, this);
   	});
 
@@ -164,7 +164,7 @@ function search() {
 				var data = response[0].unique;
 				var location = {lat: Number(data.lat), lng: Number(data.lng)}
   				var message = data.nama + " -" + data.nama_atm;
-          		var address = data.alamat;
+          		var address = data.alamat+ "<br>Jenis : " + data.jenis + "<br>Nominal : " + data.nominal;;
           		//map.setCenter(location);
           		dest = data.alamat;
 

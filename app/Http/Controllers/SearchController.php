@@ -21,7 +21,9 @@ class SearchController extends Controller
     }
 
     public function getAll() {
-        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        $atm = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')
+                ->join('info', 'info.id_atm', '=', 'atm.ida')
+                ->where('status', '=', '1')->get();
         return $atm;
     }
 
@@ -60,7 +62,7 @@ class SearchController extends Controller
 
         $result = Array();
         
-        $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->where('status', '=', '1')->get();
+        $activeAtms = DB::table('atm')->join('bank', 'atm.id_bank', '=', 'bank.id')->join('info', 'info.id_atm', '=', 'atm.ida')->where('status', '=', '1')->get();
 
         foreach ($activeAtms as $activeAtm) {
             $isTrueAtm = strcmp($activeAtm->nama_atm, $atmName) == 0;

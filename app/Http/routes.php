@@ -55,4 +55,6 @@ Route::get('/info', function () {
     return view('info');
 });
 
+Route::get('/show/{atm}', 'AtmController@show');
+
 
