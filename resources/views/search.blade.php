@@ -63,7 +63,7 @@ function initMap() {
 				var atm = response[i];
 				var location = {lat: parseFloat(atm.lat), lng: parseFloat(atm.lng)};
 				var message = atm.nama + " - " + atm.nama_atm;
-				var address = atm.alamat;
+				var address = atm.alamat+ "<br>Jenis : " + atm.jenis + "<br>Nominal : " + atm.nominal;
 				addMarker(location, message, address);	
 			}
 		})
@@ -166,8 +166,8 @@ function search() {
 				var data = response[0].unique;
 				var location = {lat: Number(data.lat), lng: Number(data.lng)}
   				var message = data.nama + " -" + data.nama_atm;
-          		var address = data.alamat;
-          		dest = address;
+          		var address = data.alamat+ "<br>Jenis : " + data.jenis + "<br>Nominal : " + data.nominal;
+          		dest = data.alamat;
 
   				addMarker(location, message, address);
 			}

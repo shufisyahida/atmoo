@@ -120,12 +120,12 @@
         function initMap() {
             var image = "{{asset('pin/location_2.png')}}";
             var map = new google.maps.Map(document.getElementById('map'), {
-                center: {lat: -6.307713, lng: 106.831228},
+                center: {lat: -6.3876732, lng: 106.7477564},
                 zoom: 12
             });
 
             marker = new google.maps.Marker({
-                position: new google.maps.LatLng(-6.307713, 106.831228),
+                position: new google.maps.LatLng(-6.421651853201728, 106.96529388427734),
                 draggable:true,
                 map: map,
                 icon: image
