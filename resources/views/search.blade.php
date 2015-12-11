@@ -29,12 +29,15 @@
 @section('content')
 
 <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><img src="{{url('../resources/assets/img/clocation.png')}}" style="width:30px; height:30px"></button>
-<div id="directions-panel2" style="display:none; float:left; width:30%; height:80%; overflow:auto;"></div>
+<div id="directions-panel" style="height:80%; width:30%; float:left">
+	<div style="overflow:auto; height: 100%" id="directions-panel2"></div>
+</div>
 <div class="map" id="map"></div>
 <script>
 var map;
 var markers = [];
 var dest;
+var origin;
 var lati;
 var longi;
 
@@ -42,7 +45,6 @@ var longi;
 // 		$("#directions-panel").hide();
 // });
 $("#directions-panel").hide();
-$("#directions-panel2").hide();
 $("#getrute").hide();
 function initMap() {
   	var depok = {lat: -6.367713, lng: 106.821228};
@@ -63,15 +65,18 @@ function initMap() {
 				var atm = response[i];
 				var location = {lat: parseFloat(atm.lat), lng: parseFloat(atm.lng)};
 				var message = atm.nama + " - " + atm.nama_atm;
-				var address = atm.alamat+ "<br>Jenis : " + atm.jenis + "<br>Nominal : " + atm.nominal;
-				addMarker(location, message, address);	
+				var address = atm.alamat;
+				var jenis = atm.jenis;
+				var nominal = atm.nominal;
+				dest = address;
+				addMarker(location, message, address, jenis, nominal);
 			}
 		})
 	});
 }
 
 // Adds a marker to the map and push to the array.
-function addMarker(location, message, address) {
+function addMarker(location, message, address, jenis, nominal) {
 	var infoBank = new google.maps.InfoWindow();
 	var image = "{{asset('pin/location_2.png')}}";
 	var marker = new google.maps.Marker({
@@ -84,7 +89,9 @@ function addMarker(location, message, address) {
     	infoBank.setContent('\
     		<div>\
     			<strong>' + message + '</strong><br>\
-    			Alamat: ' + address + '<br><br>\
+    			Alamat: ' + address + '<br>\
+    			Jenis: ' + jenis + '<br>\
+    			Nominal: ' + nominal + '<br><br>\
     			<button onclick="getLocationSearch()" id="getrute" class="pull-right btn btn-xs btn-pink">Tunjukan Rute</button>\
     		</div>');
     	infoBank.open(map, this);
@@ -120,8 +127,8 @@ function deleteMarkers() {
 function handleLocationError(browserHasGeolocation, infowWindow, pos) {
 	infoWindow.setPosition(pos);
 	infoWindow.setContent(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
 }
 
 $.ajax({
@@ -166,10 +173,12 @@ function search() {
 				var data = response[0].unique;
 				var location = {lat: Number(data.lat), lng: Number(data.lng)}
   				var message = data.nama + " -" + data.nama_atm;
-          		var address = data.alamat+ "<br>Jenis : " + data.jenis + "<br>Nominal : " + data.nominal;
-          		dest = data.alamat;
+          		var address = data.alamat;
+          		var jenis = data.jenis;
+          		var nominal = data.nominal;
+          		dest = address;
 
-  				addMarker(location, message, address);
+  				addMarker(location, message, address, jenis, nominal);
 			}
 
 			if(response[0].hasOwnProperty('location')) {
@@ -177,7 +186,7 @@ function search() {
 				var location = {lat: Number(data.lat), lng: Number(data.lng)}
   				var message = data.nama + " -" + data.nama_atm;
           		var address = data.alamat;
-  				addMarker(location, message, address);
+  				//addMarker(location, message, address);
 			}
 
 			if(response[0].hasOwnProperty('bank')) {
@@ -192,7 +201,7 @@ function search() {
 	  				var message = data.nama + " -" + data.nama_atm;
 	          		var address = data.alamat;
 	  				bounds.extend(location);
-	  				addMarker(location, message, address);
+	  				//addMarker(location, message, address);
 				}
 				console.log(markers);
 				map.fitBounds(bounds);
@@ -202,9 +211,7 @@ function search() {
 }
 
 function getLocationSearch() {
-	
-	$("#directions-panel").hide();
-	$("#directions-panel2").show();
+	$("#directions-panel").show();
 	var directionsService = new google.maps.DirectionsService;
 	var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
@@ -216,21 +223,27 @@ function getLocationSearch() {
  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
-                        var lat = position.coords.latitude;
-                        var lng= position.coords.longitude;
-                        //getNear(lat,lng);
-                        //addMarker(lat,lng,"You are here","Here");
-                        directionsDisplay.setMap(map);
-                        calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng);
+            var lat = position.coords.latitude;
+            var lng= position.coords.longitude;
+            directionsDisplay.setMap(map);
+            origin = {lat: lat, lng: lng};
+            calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng);                        
+        }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
+    } else {
+        alert('geolocation is unsupported?');
+    }
+}
 
-                        
-                }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
-            }else{
-                alert('geolocation is unsupported?');
-            }
-            //alert('alert 2: ' + lat + ', ' + lng);
- 
-        }
+$('#current-origin').click(function(){
+	if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position){
+            origin = {lat: position.coords.latitude, lng: position.coords.longitude};
+        }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
+    } else {
+        alert('geolocation is unsupported?');
+    }
+    getLocationSearch();
+});
 
 
 function getLocation() {
@@ -300,35 +313,34 @@ function getNear(Latitude, Longitude) {
 	}
 }
 
-function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng) {
-		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
-		  var markerorigin = new google.maps.Marker({
-	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
-	           map: map,
-	           title: "Origin",
-	           visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
-		});
-		  directionsService.route({
-		    origin: markerorigin.getPosition(),
-		    //origin: markerorigin.getPosition(),
-		    destination: dest,
-		    travelMode: google.maps.TravelMode.DRIVING,
-		    provideRouteAlternatives:true
-		  }, function(response, status) {
-		    if (status === google.maps.DirectionsStatus.OK) {
-		      directionsDisplay.setDirections(response);
-		    } else {
-		      window.alert('Directions request failed due to ' + status);
-		    }
-		  });
+function calculateAndDisplayRoute2(directionsService, directionsDisplay) {
+	//var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
+	var markerorigin = new google.maps.Marker({
+        position: origin,
+        map: map,
+        title: "Origin",
+        visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
+	});
+	directionsService.route({
+	    origin: markerorigin.getPosition(),
+	    destination: dest,
+	    travelMode: google.maps.TravelMode.DRIVING,
+	    provideRouteAlternatives:true
+	}, function(response, status) {
+	    if (status === google.maps.DirectionsStatus.OK) {
+	      	directionsDisplay.setDirections(response);
+	    } else {
+	      	window.alert('Directions request failed due to ' + status);
+	    }
+	});
 
-		  		// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
-			  	directionsDisplay.setMap(map);
-		  		directionsDisplay.setPanel(document.getElementById('directions-panel2'))
-		  			  		// menampilkan layer traffic atau lalu-lintas pada peta
-		  		var trafficLayer = new google.maps.TrafficLayer();
-  				trafficLayer.setMap(map);
-		}	
+	// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
+	directionsDisplay.setMap(map);
+	directionsDisplay.setPanel(document.getElementById('directions-panel2'))
+	// menampilkan layer traffic atau lalu-lintas pada peta
+	var trafficLayer = new google.maps.TrafficLayer();
+	trafficLayer.setMap(map);
+}	
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
