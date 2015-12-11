@@ -166,7 +166,7 @@ function search() {
   				var message = data.nama + " -" + data.nama_atm;
           		var address = data.alamat+ "<br>Jenis : " + data.jenis + "<br>Nominal : " + data.nominal;;
           		//map.setCenter(location);
-          		dest = data.alamat;
+          		dest = location;
 
   				addMarker(location, message, address);
 
@@ -295,7 +295,8 @@ function getNear(Latitude, Longitude) {
         dataType: 'json',
         data: { 'lat': latitu, 'long':longitu  }
     }).done(function(response){
-    	dest =response[0].alamat;
+    	alert(response);
+    	dest ={lat: parseFloat(response[0].lat), lng: parseFloat(response[0].lng)};
     	for(i in response) {
 				lat[i]=parseFloat(response[i].lat);
 			    lng[i]=parseFloat(response[i].lng);
@@ -306,7 +307,7 @@ function getNear(Latitude, Longitude) {
     });
       
 	alert("We've Found Your Location");
-	for (i = 14; i < 10; i++) { 
+	for (i = 1; i < 10; i++) { 
 		var message = nama[i]+"-"+namaatm[i];
 		var address = alamat[i];
 		var location = {lat: lat[i], lng: lng[i]}
@@ -316,6 +317,7 @@ function getNear(Latitude, Longitude) {
 
 function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
+		  var destloc = new google.maps.LatLng(dest);
 		  var markerorigin = new google.maps.Marker({
 	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
 	           map: map,
@@ -325,7 +327,7 @@ function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, ln
 		  directionsService.route({
 		    origin: markerorigin.getPosition(),
 		    //origin: markerorigin.getPosition(),
-		    destination: dest,
+		    destination: destloc,
 		    travelMode: google.maps.TravelMode.DRIVING,
 		    provideRouteAlternatives:true
 		  }, function(response, status) {
@@ -346,6 +348,7 @@ function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, ln
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
+		  var destloc = new google.maps.LatLng(dest);
 		  var markerorigin = new google.maps.Marker({
 	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
 	           map: map,
@@ -355,7 +358,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng
 		  directionsService.route({
 		    origin: markerorigin.getPosition(),
 		    //origin: markerorigin.getPosition(),
-		    destination: dest,
+		    destination: destloc,
 		    travelMode: google.maps.TravelMode.DRIVING,
 		    provideRouteAlternatives:true
 		  }, function(response, status) {
