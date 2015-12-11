@@ -197,11 +197,11 @@ function search() {
 					var data = response[i]['bank'];
 					console.log(data);
 					console.log(Number(data.lat));
-					var location = {lat: Number(data.lat), lng: Number(data.lng)};
+					var location = new google.maps.LatLng(parseFloat(data.lat),parseFloat(data.lng));
 	  				var message = data.nama + " -" + data.nama_atm;
 	          		var address = data.alamat;
 	  				bounds.extend(location);
-	  				//addMarker(location, message, address);
+	  				addMarker(location, message, address, jenis, lokasi);
 				}
 				console.log(markers);
 				map.fitBounds(bounds);
@@ -373,12 +373,12 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng
 		}	
 
 $('#location').bind("enterKey",function(e){
-	$("#directions-panel2").hide();
+	$("#directions-panel").css("display","none");
 	search();
 });
 
 $('#bank').bind("enterKey",function(e){
-	$("#directions-panel2").hide();
+	$("#directions-panel").css("display","none");
 	search();
 });
 
