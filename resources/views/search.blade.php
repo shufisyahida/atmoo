@@ -182,15 +182,26 @@ function search() {
 			}
 
 			if(response[0].hasOwnProperty('location')) {
-				var data = response;
-				var location = {lat: Number(data.lat), lng: Number(data.lng)}
-  				var message = data.nama + " -" + data.nama_atm;
-          		var address = data.alamat;
-  				//addMarker(location, message, address);
+				var bounds = new google.maps.LatLngBounds();
+				
+				for(var i = 0; i < response.length; i++) {
+					var data = response[i]['location'];
+					console.log(data);
+					console.log(Number(data.lat));
+					var location = new google.maps.LatLng(parseFloat(data.lat),parseFloat(data.lng));
+	  				var message = data.nama + " -" + data.nama_atm;
+	          		var address = data.alamat;
+	          		var jenis = data.jenis;
+	          		var nominal = data.nominal;
+	          		dest = address;
+	  				bounds.extend(location);
+	  				addMarker(location, message, address, jenis, nominal);
+				}
+				console.log(markers);
+				map.fitBounds(bounds);
 			}
 
 			if(response[0].hasOwnProperty('bank')) {
-				var center;
 				var bounds = new google.maps.LatLngBounds();
 				
 				for(var i = 0; i < response.length; i++) {
@@ -200,8 +211,11 @@ function search() {
 					var location = new google.maps.LatLng(parseFloat(data.lat),parseFloat(data.lng));
 	  				var message = data.nama + " -" + data.nama_atm;
 	          		var address = data.alamat;
+	          		var jenis = data.jenis;
+	          		var nominal = data.nominal;
+	          		dest = address;
 	  				bounds.extend(location);
-	  				addMarker(location, message, address, jenis, lokasi);
+	  				addMarker(location, message, address, jenis, nominal);
 				}
 				console.log(markers);
 				map.fitBounds(bounds);
@@ -233,17 +247,6 @@ function getLocationSearch() {
         alert('geolocation is unsupported?');
     }
 }
-
-$('#current-origin').click(function(){
-	if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position){
-            origin = {lat: position.coords.latitude, lng: position.coords.longitude};
-        }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
-    } else {
-        alert('geolocation is unsupported?');
-    }
-    getLocationSearch();
-});
 
 
 function getLocation() {
@@ -294,7 +297,8 @@ function getNear(Latitude, Longitude) {
         dataType: 'json',
         data: { 'lat': latitu, 'long':longitu  }
     }).done(function(response){
-    	dest =response[0].alamat;
+    	alert(response);
+    	dest ={lat: parseFloat(response[0].lat), lng: parseFloat(response[0].lng)};
     	for(i in response) {
 				lat[i]=parseFloat(response[i].lat);
 			    lng[i]=parseFloat(response[i].lng);
@@ -305,7 +309,7 @@ function getNear(Latitude, Longitude) {
     });
       
 	alert("We've Found Your Location");
-	for (i = 14; i < 10; i++) { 
+	for (i = 1; i < 10; i++) { 
 		var message = nama[i]+"-"+namaatm[i];
 		var address = alamat[i];
 		var location = {lat: lat[i], lng: lng[i]}
@@ -313,26 +317,28 @@ function getNear(Latitude, Longitude) {
 	}
 }
 
-function calculateAndDisplayRoute2(directionsService, directionsDisplay) {
-	//var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
-	var markerorigin = new google.maps.Marker({
-        position: origin,
-        map: map,
-        title: "Origin",
-        visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
-	});
-	directionsService.route({
-	    origin: markerorigin.getPosition(),
-	    destination: dest,
-	    travelMode: google.maps.TravelMode.DRIVING,
-	    provideRouteAlternatives:true
-	}, function(response, status) {
-	    if (status === google.maps.DirectionsStatus.OK) {
-	      	directionsDisplay.setDirections(response);
-	    } else {
-	      	window.alert('Directions request failed due to ' + status);
-	    }
-	});
+function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng) {
+		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
+		  var destloc = new google.maps.LatLng(dest);
+		  var markerorigin = new google.maps.Marker({
+	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
+	           map: map,
+	           title: "Origin",
+	           visible:false // kita ga perlu menampilkan markernya, jadi visibilitasnya kita set false
+		});
+		  directionsService.route({
+		    origin: markerorigin.getPosition(),
+		    //origin: markerorigin.getPosition(),
+		    destination: destloc,
+		    travelMode: google.maps.TravelMode.DRIVING,
+		    provideRouteAlternatives:true
+		  }, function(response, status) {
+		    if (status === google.maps.DirectionsStatus.OK) {
+		      directionsDisplay.setDirections(response);
+		    } else {
+		      window.alert('Directions request failed due to ' + status);
+		    }
+		  });
 
 	// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
 	directionsDisplay.setMap(map);
@@ -344,6 +350,7 @@ function calculateAndDisplayRoute2(directionsService, directionsDisplay) {
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
+		  var destloc = new google.maps.LatLng(dest);
 		  var markerorigin = new google.maps.Marker({
 	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
 	           map: map,
@@ -353,7 +360,7 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng
 		  directionsService.route({
 		    origin: markerorigin.getPosition(),
 		    //origin: markerorigin.getPosition(),
-		    destination: dest,
+		    destination: destloc,
 		    travelMode: google.maps.TravelMode.DRIVING,
 		    provideRouteAlternatives:true
 		  }, function(response, status) {
