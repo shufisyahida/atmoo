@@ -29,21 +29,23 @@
 @section('content')
 
 <button onclick="getLocation()" type="button" style="z-index:5000; position:absolute; top:70%" class="btn btn-warning btn-circle btn-xl"><img src="{{url('../resources/assets/img/clocation.png')}}" style="width:30px; height:30px"></button>
-<div id="directions-panel" style="height:80%; width:30%; float:left">
-	<div style="overflow:auto; height: 100%" id="directions-panel2"></div>
-</div>
+<div id="directions-panel" style="float:right; width:48%; height:600px; overflow:auto;"></div>
+ <div id="directions-panel2" style="float:right; width:48%; height:600px; overflow:auto;"></div>	
+
 <div class="map" id="map"></div>
 <script>
 var map;
 var markers = [];
 var dest;
-var origin;
+var destsearch;
 var lati;
 var longi;
 
 // $(document).ready(function(){
 // 		$("#directions-panel").hide();
 // });
+
+$("#directions-panel2").hide();
 $("#directions-panel").hide();
 $("#getrute").hide();
 function initMap() {
@@ -63,12 +65,13 @@ function initMap() {
 			console.log(response);
 			for (var i = 0; i < response.length; i++) {
 				var atm = response[i];
-				var location = {lat: parseFloat(atm.lat), lng: parseFloat(atm.lng)};
+				var location = new google.maps.LatLng(parseFloat(atm.lat),parseFloat(atm.lng));
 				var message = atm.nama + " - " + atm.nama_atm;
 				var address = atm.alamat;
 				var jenis = atm.jenis;
 				var nominal = atm.nominal;
-				dest = address;
+				destsearch = {lat:parseFloat(atm.lat),lng :parseFloat(atm.lng)};
+
 				addMarker(location, message, address, jenis, nominal);
 			}
 		})
@@ -170,15 +173,18 @@ function search() {
 			}
 
 			if (response[0].hasOwnProperty('unique')) {
+				var bounds = new google.maps.LatLngBounds();
 				var data = response[0].unique;
-				var location = {lat: Number(data.lat), lng: Number(data.lng)}
+				var location = new google.maps.LatLng(parseFloat(data.lat),parseFloat(data.lng));
   				var message = data.nama + " -" + data.nama_atm;
           		var address = data.alamat;
           		var jenis = data.jenis;
           		var nominal = data.nominal;
-          		dest = address;
+          		destsearch = {lat:parseFloat(data.lat),lng :parseFloat(data.lng)};
+          		bounds.extend(location);
 
   				addMarker(location, message, address, jenis, nominal);
+  				map.fitBounds(bounds);
 			}
 
 			if(response[0].hasOwnProperty('location')) {
@@ -193,7 +199,7 @@ function search() {
 	          		var address = data.alamat;
 	          		var jenis = data.jenis;
 	          		var nominal = data.nominal;
-	          		dest = address;
+	          		destsearch = {lat:parseFloat(data.lat),lng :parseFloat(data.lng)};
 	  				bounds.extend(location);
 	  				addMarker(location, message, address, jenis, nominal);
 				}
@@ -213,7 +219,7 @@ function search() {
 	          		var address = data.alamat;
 	          		var jenis = data.jenis;
 	          		var nominal = data.nominal;
-	          		dest = address;
+	          		destsearch = {lat:parseFloat(data.lat),lng :parseFloat(data.lng)};
 	  				bounds.extend(location);
 	  				addMarker(location, message, address, jenis, nominal);
 				}
@@ -225,33 +231,40 @@ function search() {
 }
 
 function getLocationSearch() {
-	$("#directions-panel").show();
+	
+	$("#directions-panel").hide();
+	$("#directions-panel2").show();
 	var directionsService = new google.maps.DirectionsService;
 	var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
-        	center: {lat: -6.307713, lng: 106.831228},
-        	zoom: 13        
-    	});
+          center: {lat: -6.307713, lng: 106.831228},
+          zoom: 13        });
 
-    var infoWindow = new google.maps.InfoWindow({map : map});
+        var infoWindow = new google.maps.InfoWindow({map : map});
  
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position){
-            var lat = position.coords.latitude;
-            var lng= position.coords.longitude;
-            directionsDisplay.setMap(map);
-            origin = {lat: lat, lng: lng};
-            calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng);                        
-        }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
-    } else {
-        alert('geolocation is unsupported?');
-    }
-}
+                        var lat = position.coords.latitude;
+                        var lng= position.coords.longitude;
+                        //getNear(lat,lng);
+                        //addMarker(lat,lng,"You are here","Here");
+                        directionsDisplay.setMap(map);
+                        calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng);
+
+                        
+                }, function(error) { alert('ERROR(' + error.code + '): ' + error.message); });
+            }else{
+                alert('geolocation is unsupported?');
+            }
+            //alert('alert 2: ' + lat + ', ' + lng);
+ 
+        }
 
 
 function getLocation() {
 	$("#getrute").hide();
 	$("#directions-panel").show();
+	$("#directions-panel2").hide();
 	var directionsService = new google.maps.DirectionsService;
 	var directionsDisplay = new google.maps.DirectionsRenderer;
     map = new google.maps.Map(document.getElementById('map'), {
@@ -297,7 +310,7 @@ function getNear(Latitude, Longitude) {
         dataType: 'json',
         data: { 'lat': latitu, 'long':longitu  }
     }).done(function(response){
-    	alert(response);
+    	
     	dest ={lat: parseFloat(response[0].lat), lng: parseFloat(response[0].lng)};
     	for(i in response) {
 				lat[i]=parseFloat(response[i].lat);
@@ -319,7 +332,7 @@ function getNear(Latitude, Longitude) {
 
 function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, lng) {
 		  //var position= new google.maps.LatLng(parseFloat(lat),parseFloat(lng));
-		  var destloc = new google.maps.LatLng(dest);
+		  var destloc = new google.maps.LatLng(destsearch);
 		  var markerorigin = new google.maps.Marker({
 	           position: new google.maps.LatLng(parseFloat(lat),parseFloat(lng)),
 	           map: map,
@@ -339,13 +352,13 @@ function calculateAndDisplayRoute2(directionsService, directionsDisplay, lat, ln
 		      window.alert('Directions request failed due to ' + status);
 		    }
 		  });
-
-	// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
-	directionsDisplay.setMap(map);
-	directionsDisplay.setPanel(document.getElementById('directions-panel2'))
-	// menampilkan layer traffic atau lalu-lintas pada peta
-	var trafficLayer = new google.maps.TrafficLayer();
-	trafficLayer.setMap(map);
+		  	// menampiklkan rute pada peta dan juga direction panel sebagai petunjuk text
+			  	directionsDisplay.setMap(map);
+			  	$('#directions-panel2').empty();
+		  		directionsDisplay.setPanel(document.getElementById('directions-panel2'))
+		  			  		// menampilkan layer traffic atau lalu-lintas pada peta
+		  		var trafficLayer = new google.maps.TrafficLayer();
+  				trafficLayer.setMap(map);
 }	
 
 function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng) {
@@ -380,12 +393,12 @@ function calculateAndDisplayRoute(directionsService, directionsDisplay, lat, lng
 		}	
 
 $('#location').bind("enterKey",function(e){
-	$("#directions-panel").css("display","none");
+	$("#directions-panel2").css("display","none");
 	search();
 });
 
 $('#bank').bind("enterKey",function(e){
-	$("#directions-panel").css("display","none");
+	$("#directions-panel2").css("display","none");
 	search();
 });
 
